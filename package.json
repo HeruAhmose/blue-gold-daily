@@ -1,0 +1,31 @@
+{
+  "name": "blue-gold-daily",
+  "version": "1.0.0",
+  "private": true,
+  "description": "True Melange Φ — Blue-Gold Daily. A saffron-hemp ready-to-drink tea. Public site.",
+  "license": "SEE LICENSE IN LICENSE",
+  "author": "Jonathan Peoples <Concord, NC>",
+  "homepage": "https://bluegolddaily.com",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HeruAhmose/blue-gold-daily.git"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "npx --yes serve@14 . -l 4173",
+    "build": "node scripts/build.mjs",
+    "check": "npm run check:html && npm run check:links && npm run check:claims",
+    "check:html": "npx --yes html-validate@8 \"*.html\"",
+    "check:links": "node scripts/check-links.mjs",
+    "check:claims": "node scripts/check-claims.mjs",
+    "test": "npm run check"
+  },
+  "devDependencies": {},
+  "keywords": [
+    "trai",
+    "true-melange",
+    "blue-gold-daily"
+  ]
+}

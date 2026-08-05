@@ -1,0 +1,6 @@
+# Every change requires the owner's review. Claims-bearing content and the
+# guard that enforces it are deliberately listed twice for visibility.
+*                           @HeruAhmose
+/scripts/check-claims.mjs   @HeruAhmose
+/*.html                     @HeruAhmose
+/LICENSE                    @HeruAhmose

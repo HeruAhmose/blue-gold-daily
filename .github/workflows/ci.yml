@@ -1,0 +1,93 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: Verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # The claims guard runs first and blocks everything downstream. A
+      # prohibited health claim, a fabricated institutional validation, or an
+      # unfilled template placeholder fails the build before anything is built.
+      - name: Claims guard
+        run: node scripts/check-claims.mjs
+
+      - name: Internal links and assets
+        run: node scripts/check-links.mjs
+
+      - name: HTML validity
+        run: npx --yes html-validate@8 "*.html"
+
+      - name: Build
+        env:
+          SITE_URL: ${{ vars.SITE_URL || 'https://bluegolddaily.com' }}
+        run: node scripts/build.mjs
+
+      - name: Upload build
+        uses: actions/upload-artifact@v4
+        with:
+          name: site
+          path: dist/
+          retention-days: 7
+
+  a11y:
+    name: Accessibility and performance
+    runs-on: ubuntu-latest
+    needs: verify
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Build
+        run: node scripts/build.mjs
+
+      - name: Serve
+        run: npx --yes serve@14 dist -l 4173 &
+
+      - name: Wait for server
+        run: npx --yes wait-on@7 http://127.0.0.1:4173 -t 30000
+
+      - name: Lighthouse
+        run: |
+          npx --yes @lhci/cli@0.13 autorun \
+            --collect.url=http://127.0.0.1:4173/index.html \
+            --collect.url=http://127.0.0.1:4173/product.html \
+            --collect.url=http://127.0.0.1:4173/science.html \
+            --collect.numberOfRuns=1 \
+            --assert.assertions.categories:accessibility=error \
+            --assert.assertions.categories:seo=warn \
+            --assert.assertions.categories:performance=warn \
+            --upload.target=filesystem \
+            --upload.outputDir=./lighthouse
+        continue-on-error: true
+
+      - name: Upload Lighthouse report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse
+          path: lighthouse/
+          retention-days: 7

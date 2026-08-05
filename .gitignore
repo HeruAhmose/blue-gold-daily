@@ -1,0 +1,10 @@
+node_modules/
+dist/
+lighthouse/
+.DS_Store
+.env
+.env.*
+!.env.example
+*.log
+.netlify/
+.vercel/

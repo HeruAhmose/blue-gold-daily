@@ -1,0 +1,99 @@
+{
+  "$comment": "Canonical registry of every TRAI web property. Both stacks read this file to build their cross-site navigation, so a URL is changed in one place and every property follows. Stage values use the same vocabulary as the venture documents so nothing reads as further along than it is.",
+  "version": "1.0.0",
+  "updated": "2026-07-31",
+  "organization": {
+    "name": "Tamerian Renaissance Alliance Initiative",
+    "short": "TRAI",
+    "founder": "Jonathan Peoples",
+    "locality": "Concord",
+    "region": "NC",
+    "country": "US",
+    "github": "https://github.com/HeruAhmose",
+    "standard": "Vast in vision. Exact in claim."
+  },
+  "properties": [
+    {
+      "id": "trai",
+      "name": "TRAI",
+      "full": "Sovereign Technology Portfolio",
+      "role": "The architecture",
+      "url": "",
+      "urlEnv": "VITE_URL_TRAI",
+      "primary": true,
+      "stage": "live",
+      "blurb": "Seven ventures as one regenerative organism."
+    },
+    {
+      "id": "tamerian",
+      "name": "Tamerian Materials",
+      "full": "Tamerian Materials",
+      "role": "Material sovereignty",
+      "url": "https://tamerian-materials.com/",
+      "primary": false,
+      "stage": "live",
+      "blurb": "Hemp-derived carbon composite. Patent 63/934,269."
+    },
+    {
+      "id": "bluegold",
+      "name": "True Melange \u03a6",
+      "full": "Blue-Gold Daily",
+      "role": "Biological sovereignty",
+      "url": "",
+      "urlEnv": "URL_BLUEGOLD",
+      "primary": true,
+      "stage": "pre-launch",
+      "blurb": "A saffron-hemp ready-to-drink tea."
+    },
+    {
+      "id": "califia",
+      "name": "Queen Califia",
+      "full": "Queen Califia CyberAI",
+      "role": "Cognitive sovereignty",
+      "url": "https://queencalifia-cyberai.web.app/",
+      "primary": false,
+      "stage": "live",
+      "blurb": "Autonomous cybersecurity on a triple-core architecture."
+    },
+    {
+      "id": "techbridge",
+      "name": "TechBridge",
+      "full": "TechBridge Collective",
+      "role": "Community reach",
+      "url": "https://techbridge-collective.org/",
+      "primary": false,
+      "stage": "live",
+      "blurb": "Community technology hubs and Digital Navigators."
+    },
+    {
+      "id": "melanina",
+      "name": "MeLaNiNa",
+      "full": "MeLaNiNa",
+      "role": "Identity sovereignty",
+      "url": "",
+      "primary": false,
+      "stage": "building",
+      "blurb": "Hemp apparel and cultural expression."
+    },
+    {
+      "id": "melanation",
+      "name": "Mela Nation",
+      "full": "Mela Nation",
+      "role": "Mobility sovereignty",
+      "url": "",
+      "primary": false,
+      "stage": "building",
+      "blurb": "Last-mile logistics and community access."
+    },
+    {
+      "id": "foundation",
+      "name": "The Peoples Foundation",
+      "full": "The Peoples Foundation",
+      "role": "Regenerative return",
+      "url": "",
+      "primary": false,
+      "stage": "building",
+      "blurb": "508(c)(1)(a). Surplus returned to the community."
+    }
+  ]
+}

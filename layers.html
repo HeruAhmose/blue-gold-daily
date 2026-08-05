@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Φ Layer System — True Melange Φ</title>
+<meta name="description" content="Nine Fibonacci-indexed formulation layers. Each carries a colour, a story, a ritual and a tested function.">
+<meta name="author" content="Jonathan Peoples">
+<meta name="theme-color" content="#d6a33a">
+<meta property="og:title" content="The Φ Layer System — True Melange Φ">
+<meta property="og:description" content="Nine Fibonacci-indexed formulation layers. Each carries a colour, a story, a ritual and a tested function.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://bluegolddaily.com/og.png">
+<meta property="og:url" content="https://bluegolddaily.com/layers.html">
+<meta property="og:site_name" content="True Melange Φ">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://bluegolddaily.com/layers.html">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=Archivo:wght@200;300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/base.css">
+<style>
+
+.stack{border-top:1px solid var(--rule)}
+.lyr{display:grid;grid-template-columns:5rem 1fr auto;gap:1.2rem;align-items:center;width:100%;
+  padding:1.5rem 0;border:0;border-bottom:1px solid var(--rule);background:none;color:inherit;font:inherit;
+  text-align:left;cursor:pointer;transition:padding-left .4s var(--ease),background .4s var(--ease)}
+.lyr:hover,.lyr[aria-expanded=true]{padding-left:1.1rem;background:linear-gradient(90deg,rgba(214,163,58,.08),transparent 62%)}
+.lyr .i{font-family:var(--mono);font-size:.76rem;color:var(--gold);letter-spacing:.06em}
+.lyr .n{font-family:var(--display);font-size:clamp(1.15rem,2.4vw,1.6rem);font-weight:400;line-height:1.14}
+.lyr .sw{width:2.9rem;height:.4rem;border-radius:99px;flex:none}
+.pnl{display:grid;grid-template-rows:0fr;transition:grid-template-rows .55s var(--ease);border-bottom:1px solid var(--rule)}
+.pnl.open{grid-template-rows:1fr}
+.pnl > div{overflow:hidden}
+.pnl .in{padding:.4rem 0 2rem;display:grid;gap:1rem;max-width:var(--measure)}
+.pnl .in p{margin:0}
+.pnl .in .fn{color:var(--bone-dim);font-size:.95rem}
+
+</style>
+<script type="speculationrules">
+{"prerender":[{"where":{"and":[{"href_matches":"/*.html"},{"not":{"selector_matches":".ext"}}]},"eagerness":"moderate"}]}
+</script>
+</head>
+<body>
+<a class="sr" href="#main">Skip to content</a>
+<site-nav></site-nav>
+<main id="main">
+
+<header class="masthead"><div class="wrap">
+  <div class="idx rv">02 / FORMULATION ARCHITECTURE</div>
+  <h1 class="rv display">The Φ <em>Layer System</em></h1>
+  <p class="lede rv">Every product in the line is built from the same Fibonacci-indexed layers. Each one is simultaneously a piece of the mythos, a ritual element, and an ingredient group with a real function. A product activates the layers it needs; the rest stay dormant for other lanes.</p>
+</div></header>
+
+<section>
+  <div class="wrap">
+    <div class="stack rv" id="stack"></div>
+    <p class="spec rv" style="margin-top:2rem;color:var(--bone-mute)">Φ-21 is the only layer that is not an ingredient. It is documented in full on the <a href="mission.html" style="color:var(--gold)">sovereignty loop</a>.</p>
+  </div>
+</section>
+
+</main>
+<page-pager></page-pager>
+<site-footer></site-footer>
+<script src="shared/trai-ecosystem.js" data-property="bluegold" data-base="shared" defer></script>
+<script src="assets/site.js"></script>
+<script>
+
+var L=[
+ {i:'Φ-1',n:'Red-Gold Core',c:'linear-gradient(90deg,#F0C463,#A8431F)',
+  m:'The spice itself. The gold of the queendom, and the heart of the blend.',
+  f:'Identity, apocarotenoid mood and antioxidant support.',
+  g:'SAFFRON · CROCIN · CROCETIN · SAFRANAL · GARDENIA APOCAROTENOIDS'},
+ {i:'Φ-1',n:'Soma Matrix',c:'linear-gradient(90deg,#8A9A5B,#D6A33A)',
+  m:'The body and the earth. Hemp as connective material.',
+  f:'Nutritional carrier, lipid and peptide base.',
+  g:'HEMPSEED OIL · HEMP SEED PROTEIN · GRAS INPUTS ONLY'},
+ {i:'Φ-2',n:'Spice Flame',c:'linear-gradient(90deg,#D6A33A,#8A3A12)',
+  m:'The caravan, the hearth, the ritual fire.',
+  f:'Flavour, warmth and sensory ritual.',
+  g:'CINNAMON · CARDAMOM · GINGER · CACAO IN ELIXIR VARIANTS'},
+ {i:'Φ-3',n:'Mind Lattice',c:'linear-gradient(90deg,#7FA87F,#3F6B54)',
+  m:'Clarity. The lattice of thought.',
+  f:'Focus and calm alertness.',
+  g:'GREEN TEA · L-THEANINE · BACOPA · RHODIOLA · SCHISANDRA'},
+ {i:'Φ-5',n:'Longevity Root',c:'linear-gradient(90deg,#8E2F4A,#4A1D3A)',
+  m:'The deep roots. The ancestral layer.',
+  f:'Polyphenol antioxidant and inflammatory balance.',
+  g:'POMEGRANATE · AMLA · TURMERIC · BLACK SEED'},
+ {i:'Φ-8',n:'Mito-Fungal Web',c:'linear-gradient(90deg,#7A6A52,#3A3026)',
+  m:'The mycelial network beneath the sand.',
+  f:'Cellular maintenance and mitochondrial support.',
+  g:'ERGOTHIONEINE MUSHROOMS · LION\u2019S MANE · SPERMIDINE FERMENT · UROLITHIN PATHWAY'},
+ {i:'Φ-13',n:'BioDelivery Shell',c:'linear-gradient(90deg,#D9D2C4,#8E8878)',
+  m:'The vessel. The protective shell.',
+  f:'Controlled delivery and stability.',
+  g:'EMULSION · HEMP-CNC PICKERING · PHYTOSOME · CYCLODEXTRIN · SMEDDS'},
+ {i:'Veil',n:'The Blue Veil',c:'linear-gradient(90deg,#5E86C9,#122E5C)',
+  m:'The spice sign. The visible signature.',
+  f:'Signature colour identity, within authorized food categories only.',
+  g:'GALDIERIA EXTRACT BLUE · BUTTERFLY PEA FLOWER'},
+ {i:'Φ-21',n:'Sovereignty Loop',c:'linear-gradient(90deg,#F0C463,#D6A33A,#5E86C9)',
+  m:'The wheel, and the return to the community.',
+  f:'Not an ingredient. The systemic layer connecting every product to the whole organism.',
+  g:'TECHBRIDGE · PEOPLES FOUNDATION · REPRESENTATION · CONCORD · BLACK-OWNED AGRICULTURE'}
+];
+var st=document.getElementById('stack');
+L.forEach(function(x,k){
+  var b=document.createElement('button');
+  b.className='lyr';b.type='button';b.setAttribute('aria-expanded','false');b.setAttribute('aria-controls','p'+k);
+  b.innerHTML='<span class="i">'+x.i+'</span><span class="n display">'+x.n+'</span><span class="sw" style="background:'+x.c+'"></span>';
+  var p=document.createElement('div');p.className='pnl';p.id='p'+k;
+  p.innerHTML='<div><div class="in"><p class="myth" style="font-size:1.12rem">'+x.m+'</p><p class="fn">'+x.f+'</p><p class="spec">'+x.g+'</p></div></div>';
+  b.addEventListener('click',function(){
+    var o=p.classList.toggle('open');
+    b.setAttribute('aria-expanded',o?'true':'false');
+  });
+  st.appendChild(b);st.appendChild(p);
+});
+
+</script>
+</body>
+</html>

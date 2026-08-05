@@ -1,0 +1,27 @@
+[build]
+  publish = "."
+
+# Long-cache immutable assets; never cache HTML so deploys land instantly.
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "SAMEORIGIN"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+
+[[redirects]]
+  from = "/blue-gold-daily"
+  to = "/product.html"
+  status = 301
+
+[[redirects]]
+  from = "/evidence"
+  to = "/science.html"
+  status = 301
