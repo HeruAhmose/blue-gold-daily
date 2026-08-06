@@ -22,13 +22,28 @@
 .wheelgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(2rem,6vw,4.5rem);align-items:center}
 @media(max-width:920px){.wheelgrid{grid-template-columns:1fr}}
 #wheel{width:100%;aspect-ratio:1;max-width:34rem;margin-inline:auto}
-.organ{display:grid;grid-template-columns:1fr auto;gap:1rem;padding:1rem 0;border-bottom:1px solid var(--rule);
-  align-items:center;transition:color .3s,padding-left .3s;cursor:default}
+.organ{display:grid;grid-template-columns:1fr auto;gap:1rem;padding:.95rem 0;border-bottom:1px solid var(--rule);
+  align-items:center;transition:color .3s,padding-left .3s,background .3s;text-decoration:none;color:inherit}
 .organ:first-child{border-top:1px solid var(--rule)}
-.organ.hot{color:var(--gold);padding-left:.6rem}
+a.organ:hover,.organ.hot{color:var(--gold);padding-left:.6rem;background:linear-gradient(90deg,rgba(214,163,58,.06),transparent 70%)}
 .organ .nm{font-size:1rem}
 .organ .nm small{display:block;font-family:var(--mono);font-size:.72rem;letter-spacing:.05em;color:var(--bone-dim);margin-top:.15rem}
-.organ .st{font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--bone-mute);white-space:nowrap}
+.organ .st{font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap;
+  padding:.25rem .5rem;border:1px solid var(--rule)}
+.organ .st.live{color:var(--gold);border-color:rgba(214,163,58,.45)}
+.organ .st.here{color:var(--ink);background:var(--gold);border-color:var(--gold)}
+.organ .st.soon{color:var(--bone-mute)}
+.loopnote{border-left:2px solid var(--gold);padding-left:1.3rem;margin:0}
+.techgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule)}
+.techgrid > div{background:var(--ink);padding:1.5rem}
+.techgrid h4{margin:0 0 .3rem;font-family:var(--display);font-weight:400;font-size:1.15rem;color:var(--bone)}
+.techgrid .role{font-family:var(--mono);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:.6rem}
+.techgrid p{margin:0 0 .9rem;font-size:.88rem;color:var(--bone-dim);line-height:1.6}
+.techgrid .stage{font-family:var(--mono);font-size:.62rem;color:var(--bone-mute);letter-spacing:.04em}
+.phi21{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1px;background:var(--rule);border:1px solid var(--rule)}
+.phi21 > div{background:var(--ink-2);padding:1.4rem}
+.phi21 h5{margin:0 0 .4rem;font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:500}
+.phi21 p{margin:0;font-size:.85rem;color:var(--bone-dim)}
 
 </style>
 <script type="speculationrules">
@@ -48,10 +63,34 @@
 
 <section>
   <div class="wrap wheelgrid">
-    <div class="rv"><canvas id="wheel" role="img" aria-label="The TRAI sovereignty flywheel: seven ventures in a rotating loop around the Peoples Foundation"></canvas></div>
+    <div class="rv"><canvas id="wheel" role="img" aria-label="The TRAI sovereignty flywheel. Seven ventures around a ring, with value returning through the Peoples Foundation at the centre and back out to the material substrate."></canvas></div>
     <div class="rv">
       <div id="organs"></div>
-      <p class="spec" style="margin-top:1.5rem;color:var(--bone-mute)">Stage shown as of July 2026. TRAI is an emerging architecture and each entity carries its true status rather than an aspirational one.</p>
+      <p class="spec" style="margin-top:1.4rem;color:var(--bone-mute)">Stage as of July&nbsp;2026. Each entity carries its true status, not an aspirational one. Ventures with a live site link to it.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<section>
+  <div class="wrap">
+    <div class="head rv"><span class="eyebrow">How the loop closes</span>
+      <h2 class="display">A can is a node, not a product</h2></div>
+    <div class="rv" style="display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,4rem)">
+      <p class="loopnote" style="color:var(--bone-dim)">
+        Blue-Gold Daily draws hemp from the same agriculture as the materials programme, is secured by the same intelligence layer, and moves through the same logistics. What it earns does not stop at the company. A defined share returns through the Peoples&nbsp;Foundation — a 508(c)(1)(a) — and comes back out as capacity: workforce, access, research participation, and the substrate the next product is built from.
+      </p>
+      <p class="loopnote" style="color:var(--bone-dim)">
+        That return is the layer we call <a href="layers.html" style="color:var(--gold)">Φ-21</a>. It is the only layer in the formulation system that is not an ingredient, and it is the reason the architecture is regenerative rather than merely diversified. The wheel turns because the community it serves is also the community that sustains it.
+      </p>
+    </div>
+    <div class="phi21 rv" style="margin-top:2.5rem">
+      <div><h5>Digital navigation</h5><p>Community technology access and literacy support through TechBridge Collective.</p></div>
+      <div><h5>Foundation programs</h5><p>Funeral assistance, violence interruption, youth athletics, community wellbeing.</p></div>
+      <div><h5>Research representation</h5><p>Closing the gap in who is included in aging, inflammation and cognition datasets.</p></div>
+      <div><h5>Concord biomanufacturing</h5><p>Domestic saffron and hemp production, and the local workforce that runs it.</p></div>
+      <div><h5>Black-owned agriculture</h5><p>Hemp and botanical sourcing through Black-owned farms and cooperatives.</p></div>
     </div>
   </div>
 </section>
@@ -66,6 +105,24 @@
       <div><h4>Hemp as substrate</h4><p>Tamerian's composite feedstock and True Melange Φ's ingredient inputs draw on the same agriculture, the same contaminant-control discipline, and the same circular co-product strategy. One crop, valorised twice.</p></div>
       <div><h4>Sovereignty as philosophy</h4><p>The Queen Califia mythos and an Afrofuturist design language run from the cybersecurity platform to the beverage. Technological self-determination is the throughline from frontier materials to community ownership.</p></div>
       <div><h4>Community as mission</h4><p>TechBridge's hubs, the health-equity pillar, and a commitment that benefit returns to the community rather than being extracted. This is the part that makes the architecture regenerative instead of merely commercial.</p></div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+<section>
+  <div class="wrap">
+    <div class="head rv"><span class="eyebrow">Section 7 · TRAI business plan</span>
+      <h2 class="display">Six proprietary technologies</h2>
+      <p>One is a filed patent. One is deployed and running. The rest are research, and are labelled as such.</p></div>
+    <div class="techgrid rv">
+      <div><span class="role">The substrate</span><h4>Tamerian Ore</h4><p>A hemp-derived carbon composite carrying piezoelectric quartz and tourmaline, magnetite and rare-earth dopants in one body.</p><span class="stage">Patent filed · 63/934,269 · 25 claims</span></div>
+      <div><span class="role">The processor</span><h4>The Tamerian Circuit</h4><p>A biomimetic processing architecture drawing its pathway topology from biological nerve structure.</p><span class="stage">Research and development</span></div>
+      <div><span class="role">The converter</span><h4>The Tamerian Engine</h4><p>Energy conversion built on the Ore substrate, targeting harvesting from ambient mechanical, thermal and magnetic sources.</p><span class="stage">Research and development</span></div>
+      <div><span class="role">The interface</span><h4>Tamerian Helm</h4><p>A wearable interface concept pairing the Ore substrate with a layered crystal geometry.</p><span class="stage">Research and development</span></div>
+      <div><span class="role">The intelligence</span><h4>Queen Califia AI</h4><p>Autonomous cybersecurity on a triple-core architecture — Cyber, Identity and Markets.</p><span class="stage">Deployed</span></div>
+      <div><span class="role">The language</span><h4>Tameric Syntax</h4><p>A multi-layer language specification developed to express the architecture across the stack.</p><span class="stage">Research and development</span></div>
     </div>
   </div>
 </section>
@@ -95,19 +152,25 @@
 <script>
 
 var O=[
- {n:'Tamerian Materials',s:'Material',r:'Skeleton · substrate',g:'Built'},
- {n:'True Melange Φ',s:'Biological',r:'Metabolism',g:'Built'},
- {n:'Queen Califia CyberAI',s:'Cognitive',r:'Nervous system',g:'Built'},
- {n:'Mela Nation',s:'Mobility',r:'Circulatory system',g:'EIN filed'},
- {n:'MeLaNiNa',s:'Identity',r:'Skin',g:'EIN filed'},
- {n:'TechBridge Collective',s:'Community',r:'Hands · reach',g:'Built'},
- {n:'The Peoples Foundation',s:'Regenerative',r:'Immune system',g:'508(c)(1)(a)'}
+ {n:'Tamerian Materials',   s:'Material',    r:'Skeleton · substrate',  g:'Live',  url:'https://tamerian-materials.com/'},
+ {n:'True Melange Φ',       s:'Biological',  r:'Metabolism',            g:'You are here', self:true},
+ {n:'Queen Califia CyberAI',s:'Cognitive',   r:'Nervous system',        g:'Live',  url:'https://queencalifia-cyberai.web.app/'},
+ {n:'Mela Nation',          s:'Mobility',    r:'Circulatory system',    g:'Building'},
+ {n:'MeLaNiNa',             s:'Identity',    r:'Skin',                  g:'Building'},
+ {n:'TechBridge Collective',s:'Community',   r:'Hands · reach',         g:'Live',  url:'https://techbridge-collective.org/'},
+ {n:'The Peoples Foundation',s:'Regenerative',r:'Immune system',        g:'508(c)(1)(a)'}
 ];
 var box=document.getElementById('organs');
 O.forEach(function(o,i){
-  var d=document.createElement('div');d.className='organ';d.dataset.i=i;
-  d.innerHTML='<div class="nm">'+o.n+'<small>'+o.s+' sovereignty · '+o.r+'</small></div><div class="st">'+o.g+'</div>';
-  box.appendChild(d);
+  var live=!!o.url;
+  var el=document.createElement(live?'a':'div');
+  el.className='organ'; el.dataset.i=i;
+  if(live){ el.href=o.url; el.target='_blank'; el.rel='noopener'; }
+  var cls=o.self?'here':(live?'live':'soon');
+  var badge=o.g+(live?' ↗':'');
+  el.innerHTML='<div class="nm">'+o.n+'<small>'+o.s+' sovereignty · '+o.r+'</small></div>'+
+               '<div class="st '+cls+'">'+badge+'</div>';
+  box.appendChild(el);
 });
 var cv=document.getElementById('wheel'),cx=cv.getContext('2d');
 var dpr=Math.min(devicePixelRatio||1,2),T=0,hot=-1;
@@ -115,28 +178,67 @@ var RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
 function sz(){var s=cv.clientWidth;cv.width=s*dpr;cv.height=s*dpr;cx.setTransform(dpr,0,0,dpr,0,0)}
 sz();addEventListener('resize',sz);
 function draw(){
-  var s=cv.clientWidth,c=s/2,R=s*.35;
+  var s=cv.clientWidth,c=s/2,R=s*.34;
   cx.clearRect(0,0,s,s);
   if(!RM)T+=.003;
-  cx.beginPath();cx.arc(c,c,R,0,6.2832);cx.strokeStyle='rgba(214,163,58,.15)';cx.lineWidth=1;cx.stroke();
+
+  /* outer ring: the circulation path */
+  cx.beginPath();cx.arc(c,c,R,0,6.2832);
+  cx.strokeStyle='rgba(214,163,58,.15)';cx.lineWidth=1;cx.stroke();
+
+  /* return spokes: every venture routes surplus inward to the Foundation */
+  O.forEach(function(o,i){
+    var a=(i/O.length)*6.2832-1.5708+T;
+    var x=c+Math.cos(a)*R, y=c+Math.sin(a)*R;
+    var h=(i===hot);
+    cx.beginPath();cx.moveTo(x,y);cx.lineTo(c,c);
+    cx.strokeStyle=h?'rgba(240,196,99,.55)':'rgba(43,92,168,.20)';
+    cx.lineWidth=h?1.6:1;cx.stroke();
+  });
+
+  /* value travelling the ring */
   var pa=T*1.5%6.2832;
-  cx.beginPath();cx.arc(c,c,R,pa,pa+.5);cx.strokeStyle='rgba(240,196,99,.9)';cx.lineWidth=2;cx.stroke();
+  cx.beginPath();cx.arc(c,c,R,pa,pa+.5);
+  cx.strokeStyle='rgba(240,196,99,.9)';cx.lineWidth=2;cx.stroke();
+
+  /* the return: surplus drawn inward, then radiating back out as capacity.
+     This is the half of the loop the previous drawing left out. */
+  var rp=(T*.55)%1;
+  var ra=pa;
+  var rr=R*(1-rp);
+  cx.beginPath();cx.arc(c+Math.cos(ra)*rr,c+Math.sin(ra)*rr,3.2,0,6.2832);
+  cx.fillStyle='rgba(240,196,99,'+(0.35+0.65*rp)+')';cx.fill();
+
+  var out=((T*.55)+0.5)%1;
+  cx.beginPath();cx.arc(c,c,R*out,0,6.2832);
+  cx.strokeStyle='rgba(43,92,168,'+(0.30*(1-out))+')';cx.lineWidth=1.4;cx.stroke();
+
+  /* nodes */
   O.forEach(function(o,i){
     var a=(i/O.length)*6.2832-1.5708+T, x=c+Math.cos(a)*R, y=c+Math.sin(a)*R, h=(i===hot);
-    cx.beginPath();cx.moveTo(c,c);cx.lineTo(x,y);
-    cx.strokeStyle=h?'rgba(240,196,99,.6)':'rgba(43,92,168,.22)';cx.lineWidth=h?1.6:1;cx.stroke();
-    cx.beginPath();cx.arc(x,y,h?9:6,0,6.2832);
-    cx.fillStyle=h?'#F0C463':(i===6?'#2B5CA8':'#D6A33A');cx.fill();
+    var isSelf=!!o.self, isLive=!!o.url;
+    cx.beginPath();cx.arc(x,y,h?9:(isSelf?8:6),0,6.2832);
+    cx.fillStyle=isSelf?'#F0C463':(h?'#F0C463':(isLive?'#D6A33A':'rgba(214,163,58,.45)'));
+    cx.fill();
+    if(isSelf){ cx.beginPath();cx.arc(x,y,13,0,6.2832);
+      cx.strokeStyle='rgba(240,196,99,.5)';cx.lineWidth=1;cx.stroke(); }
     cx.font='500 10px "IBM Plex Mono",monospace';
-    cx.fillStyle=h?'#EDE6D8':'rgba(154,146,133,.8)';
+    cx.fillStyle=h||isSelf?'#EDE6D8':'rgba(154,146,133,.75)';
     cx.textAlign=Math.cos(a)<-.25?'right':(Math.cos(a)>.25?'left':'center');
     cx.textBaseline='middle';
     cx.fillText(o.s.toUpperCase(),c+Math.cos(a)*(R+19),c+Math.sin(a)*(R+19));
   });
-  cx.beginPath();cx.arc(c,c,4,0,6.2832);cx.fillStyle='#2B5CA8';cx.fill();
+
+  /* the Foundation at the centre */
+  cx.beginPath();cx.arc(c,c,5,0,6.2832);cx.fillStyle='#2B5CA8';cx.fill();
+  cx.font='500 9px "IBM Plex Mono",monospace';
+  cx.fillStyle='rgba(154,146,133,.7)';cx.textAlign='center';cx.textBaseline='top';
+  cx.fillText('FOUNDATION',c,c+11);
+
   requestAnimationFrame(draw);
 }
 requestAnimationFrame(draw);
+
 box.querySelectorAll('.organ').forEach(function(el){
   el.addEventListener('mouseenter',function(){
     hot=+el.dataset.i;
