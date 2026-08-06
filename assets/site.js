@@ -254,22 +254,77 @@ window.TMPhyllo = function(canvas, opts){
   return {setProgress:function(p){prog=p}};
 };
 
-/* ---------------- forms ---------------- */
+/* =====================================================================
+   Forms
+   ---------------------------------------------------------------------
+   GitHub Pages is static hosting: there is no server to receive a POST.
+   Submissions therefore go to Formspree, which works from any host and
+   emails you each one.
+
+   Set your endpoint in window.TM_FORM_ENDPOINT (see join.html). Until it
+   is set, the form still validates and gives feedback, and tells the
+   visitor honestly that signup is not open yet rather than pretending to
+   have saved their address.
+
+   Honeypot: a hidden field named _gotcha. Bots fill every field they
+   find; a human never sees it. If it has content, the submission is
+   dropped silently.
+   ===================================================================== */
 window.TMForm = function(formId,msgId,ok){
   var f=document.getElementById(formId); if(!f) return;
   var m=document.getElementById(msgId);
+
+  /* honeypot, injected rather than hand-written into every form */
+  var hp=document.createElement('input');
+  hp.type='text'; hp.name='_gotcha'; hp.tabIndex=-1;
+  hp.setAttribute('autocomplete','off'); hp.setAttribute('aria-hidden','true');
+  hp.style.cssText='position:absolute;left:-9999px;width:1px;height:1px;opacity:0';
+  f.appendChild(hp);
+
   f.addEventListener('submit',function(e){
     e.preventDefault();
+    if(hp.value){ return; }               /* bot */
+
     var em=f.querySelector('input[type=email]');
-    if(!em.value || em.value.indexOf('@')<1){
+    if(!em.value || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em.value)){
       m.style.color='#C4703F';
-      m.textContent='Enter an email address so we can reach you.';
+      m.textContent='Enter a valid email address so we can reach you.';
       em.focus(); return;
     }
-    /* → POST to your endpoint here */
-    m.style.color='var(--gold)';
-    m.textContent=ok;
-    f.querySelectorAll('input').forEach(function(i){i.value=''});
+
+    var endpoint = window.TM_FORM_ENDPOINT;
+    if(!endpoint || endpoint.indexOf('YOUR_FORM_ID')>-1){
+      m.style.color='#C4703F';
+      m.textContent='Signup is not open yet — please check back shortly.';
+      return;
+    }
+
+    var btn=f.querySelector('button[type=submit]');
+    var label=btn?btn.textContent:'';
+    if(btn){ btn.disabled=true; btn.textContent='Sending…'; }
+    m.style.color='var(--bone-dim)';
+    m.textContent='Sending…';
+
+    var data=new FormData(f);
+    data.append('_subject','True Melange \u03a6 — '+formId);
+    data.append('form',formId);
+
+    fetch(endpoint,{method:'POST',body:data,headers:{'Accept':'application/json'}})
+      .then(function(r){
+        if(!r.ok) throw new Error('HTTP '+r.status);
+        m.style.color='var(--gold)';
+        m.textContent=ok;
+        f.querySelectorAll('input:not([type=hidden])').forEach(function(i){
+          if(i!==hp) i.value='';
+        });
+      })
+      .catch(function(){
+        m.style.color='#C4703F';
+        m.textContent='Something went wrong. Email us directly and we will add you.';
+      })
+      .finally(function(){
+        if(btn){ btn.disabled=false; btn.textContent=label; }
+      });
   });
 };
 

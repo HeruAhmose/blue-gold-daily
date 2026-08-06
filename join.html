@@ -51,8 +51,8 @@
     <div class="two rv">
       <form id="waitForm" novalidate>
         <p class="eyebrow" style="margin:0 0 1.3rem">For drinkers</p>
-        <div class="field"><label for="wEmail">Email</label><input id="wEmail" type="email" placeholder="you@domain.com" required></div>
-        <div class="field"><label for="wCity">City</label><input id="wCity" type="text" placeholder="Charlotte, NC"></div>
+        <div class="field"><label for="wEmail">Email</label><input id="wEmail" name="email" type="email" placeholder="you@domain.com" required></div>
+        <div class="field"><label for="wCity">City</label><input id="wCity" name="city" type="text" placeholder="Charlotte, NC"></div>
         <button class="btn" type="submit">Join the first run</button>
         <p class="msg" id="wMsg" role="status" aria-live="polite"></p>
         <p class="note">No spam. We will write when cans exist, and not before.</p>
@@ -60,11 +60,11 @@
       <form id="partnerForm" novalidate>
         <p class="eyebrow" style="margin:0 0 1.3rem">For partners</p>
         <div class="field"><label for="pRole">You are a</label>
-          <select id="pRole">
+          <select id="pRole" name="role">
             <option>Co-manufacturer</option><option>Ingredient supplier</option><option>Investor</option>
             <option>Grant program or foundation</option><option>Research partner or HBCU</option><option>Retailer</option>
           </select></div>
-        <div class="field"><label for="pEmail">Email</label><input id="pEmail" type="email" placeholder="you@company.com" required></div>
+        <div class="field"><label for="pEmail">Email</label><input id="pEmail" name="email" type="email" placeholder="you@company.com" required></div>
         <button class="btn" type="submit">Request the package</button>
         <p class="msg" id="pMsg" role="status" aria-live="polite"></p>
         <p class="note">Formulation detail is released under a mutual NDA. Architecture, evidence and grant materials go out without one.</p>
@@ -93,6 +93,11 @@
 <script src="shared/trai-ecosystem.js" data-property="bluegold" data-base="shared" defer></script>
 <script src="assets/site.js"></script>
 <script>
+
+/* Formspree endpoint. Create two forms at formspree.io (free tier covers
+   50 submissions a month), then paste the IDs here. Until then the form
+   validates and tells visitors signup is not yet open. */
+window.TM_FORM_ENDPOINT = 'https://formspree.io/f/xkjwnpde';
 
 TMForm('waitForm','wMsg','You are on the list. We will write when the first run is real.');
 TMForm('partnerForm','pMsg','Received. We will reply with the package that fits your role.');
