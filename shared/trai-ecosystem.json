@@ -1,7 +1,7 @@
 {
   "$comment": "Canonical registry of every TRAI web property. Both stacks read this file to build their cross-site navigation, so a URL is changed in one place and every property follows. Stage values use the same vocabulary as the venture documents so nothing reads as further along than it is.",
   "version": "1.0.0",
-  "updated": "2026-07-31",
+  "updated": "2026-08-06",
   "organization": {
     "name": "Tamerian Renaissance Alliance Initiative",
     "short": "TRAI",
@@ -18,7 +18,7 @@
       "name": "TRAI",
       "full": "Sovereign Technology Portfolio",
       "role": "The architecture",
-      "url": "",
+      "url": "https://heruahmose.github.io/trai-portfolio/",
       "urlEnv": "VITE_URL_TRAI",
       "primary": true,
       "stage": "live",
@@ -36,10 +36,10 @@
     },
     {
       "id": "bluegold",
-      "name": "True Melange \u03a6",
+      "name": "True Melange Φ",
       "full": "Blue-Gold Daily",
       "role": "Biological sovereignty",
-      "url": "",
+      "url": "https://heruahmose.github.io/blue-gold-daily/layers.html",
       "urlEnv": "URL_BLUEGOLD",
       "primary": true,
       "stage": "pre-launch",

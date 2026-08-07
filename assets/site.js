@@ -8,7 +8,7 @@
 var REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* Set this once the portfolio site has a permanent domain. */
-window.TRAI_PORTFOLIO = "https://3000-itpaxq0v2vylgmb4r6epx-f3788950.us2.manus.computer/projects";
+window.TRAI_PORTFOLIO = "https://heruahmose.github.io/trai-portfolio/";
 
 var PAGES = [
   {h:'index.html',    t:'Threshold',  n:'Enter'},
@@ -36,7 +36,7 @@ customElements.define('site-nav', class extends HTMLElement{
       '<nav class="nav">'+
         '<a class="brand" href="index.html"><b>Φ</b><span>True Melange</span></a>'+
         '<div class="links" id="navlinks">'+links+
-          '<a class="ext" href="'+window.TRAI_PORTFOLIO+'" target="_blank" rel="noopener">Portfolio ↗</a>'+
+          '<a class="ext" data-trai-property="trai" href="'+window.TRAI_PORTFOLIO+'" target="_blank" rel="noopener">Portfolio ↗</a>'+
         '</div>'+
         '<button class="navtoggle" aria-expanded="false" aria-controls="navlinks">Menu</button>'+
       '</nav>';
