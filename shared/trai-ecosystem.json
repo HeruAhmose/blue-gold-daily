@@ -1,7 +1,7 @@
 {
   "$comment": "Canonical registry of every TRAI web property. Both stacks read this file to build their cross-site navigation, so a URL is changed in one place and every property follows. Stage values use the same vocabulary as the venture documents so nothing reads as further along than it is.",
-  "version": "1.0.0",
-  "updated": "2026-08-06",
+  "version": "1.1.0",
+  "updated": "2026-08-07",
   "organization": {
     "name": "Tamerian Renaissance Alliance Initiative",
     "short": "TRAI",
@@ -14,15 +14,25 @@
   },
   "properties": [
     {
+      "id": "peoples",
+      "name": "People's Portfolio",
+      "full": "Jonathan Peoples — Sovereign Portfolio",
+      "role": "Human / founder",
+      "url": "https://heruahmose.github.io/peoples-portfolio/",
+      "primary": true,
+      "stage": "live",
+      "blurb": "The human story, research practice, and work behind the TRAI organism."
+    },
+    {
       "id": "trai",
       "name": "TRAI",
-      "full": "Sovereign Technology Portfolio",
-      "role": "The architecture",
+      "full": "TRAI Organism / Sovereign Technology System",
+      "role": "Organism architecture",
       "url": "https://heruahmose.github.io/trai-portfolio/",
       "urlEnv": "VITE_URL_TRAI",
       "primary": true,
       "stage": "live",
-      "blurb": "Seven ventures as one regenerative organism."
+      "blurb": "The systems map connecting independent TRAI worlds."
     },
     {
       "id": "tamerian",

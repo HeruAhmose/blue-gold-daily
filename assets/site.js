@@ -7,8 +7,9 @@
 "use strict";
 var REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/* Set this once the portfolio site has a permanent domain. */
-window.TRAI_PORTFOLIO = "https://heruahmose.github.io/trai-portfolio/";
+/* Canonical organism worlds. */
+window.PEOPLES_PORTFOLIO = "https://heruahmose.github.io/peoples-portfolio/";
+window.TRAI_WORLD = "https://heruahmose.github.io/trai-portfolio/";
 
 var PAGES = [
   {h:'index.html',    t:'Threshold',  n:'Enter'},
@@ -36,7 +37,7 @@ customElements.define('site-nav', class extends HTMLElement{
       '<nav class="nav">'+
         '<a class="brand" href="index.html"><b>Φ</b><span>True Melange</span></a>'+
         '<div class="links" id="navlinks">'+links+
-          '<a class="ext" data-trai-property="trai" href="'+window.TRAI_PORTFOLIO+'" target="_blank" rel="noopener">Portfolio ↗</a>'+
+          '<a class="ext" data-trai-property="trai" href="'+window.PEOPLES_PORTFOLIO+'" target="_blank" rel="noopener">Portfolio ↗</a>'+
         '</div>'+
         '<button class="navtoggle" aria-expanded="false" aria-controls="navlinks">Menu</button>'+
       '</nav>';
@@ -63,8 +64,9 @@ customElements.define('site-footer', class extends HTMLElement{
           '<a href="science.html">Evidence</a></div>'+
         '<div><h5>TRAI</h5>'+
           '<a href="organism.html">The organism</a>'+
+          '<a href="'+window.TRAI_WORLD+'" class="ext">TRAI world ↗</a>'+
           '<a href="mission.html">The sovereignty loop</a>'+
-          '<a href="'+window.TRAI_PORTFOLIO+'" target="_blank" rel="noopener">Sovereign portfolio ↗</a></div>'+
+          '<a href="'+window.PEOPLES_PORTFOLIO+'" target="_blank" rel="noopener">People’s Portfolio ↗</a></div>'+
         '<div><h5>Ventures</h5>'+
           '<a href="organism.html#tamerian">Tamerian Materials</a>'+
           '<a href="organism.html#califia">Queen Califia CyberAI</a>'+
