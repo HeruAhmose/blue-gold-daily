@@ -20,31 +20,40 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version: 20
+          cache: npm
+
+      - name: Install locked toolchain
+        run: npm ci --ignore-scripts
+
+      - name: Dependency audit
+        run: npm run audit:security
 
       # The claims guard runs first and blocks everything downstream. A
       # prohibited health claim, a fabricated institutional validation, or an
       # unfilled template placeholder fails the build before anything is built.
       - name: Claims guard
-        run: node scripts/check-claims.mjs
+        run: npm run check:claims
 
       - name: Internal links and assets
-        run: node scripts/check-links.mjs
+        run: npm run check:links
 
       - name: HTML validity
-        run: npx --yes html-validate@8 "*.html"
+        run: npm run check:html
 
       - name: Build
         env:
           SITE_URL: ${{ vars.SITE_URL || 'https://bluegolddaily.com' }}
-        run: node scripts/build.mjs
+        run: npm run build
 
       - name: Upload build
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: site
           path: dist/
@@ -56,23 +65,29 @@ jobs:
     needs: verify
     timeout-minutes: 12
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version: 20
+          cache: npm
+
+      - name: Install locked toolchain
+        run: npm ci --ignore-scripts
 
       - name: Build
-        run: node scripts/build.mjs
+        run: npm run build
 
       - name: Serve
-        run: npx --yes serve@14 dist -l 4173 &
+        run: npm run serve:dist &
 
       - name: Wait for server
-        run: npx --yes wait-on@7 http://127.0.0.1:4173 -t 30000
+        run: ./node_modules/.bin/wait-on http://127.0.0.1:4173 -t 30000
 
       - name: Lighthouse
         run: |
-          npx --yes @lhci/cli@0.13 autorun \
+          ./node_modules/.bin/lhci autorun \
             --collect.url=http://127.0.0.1:4173/index.html \
             --collect.url=http://127.0.0.1:4173/product.html \
             --collect.url=http://127.0.0.1:4173/science.html \
@@ -86,7 +101,7 @@ jobs:
 
       - name: Upload Lighthouse report
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: lighthouse
           path: lighthouse/
