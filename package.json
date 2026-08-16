@@ -11,19 +11,15 @@
     "url": "git+https://github.com/HeruAhmose/blue-gold-daily.git"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=22.22.0"
   },
   "scripts": {
-    "dev": "serve . -l 4173",
-    "serve:dist": "serve dist -l 4173",
     "build": "node scripts/build.mjs",
     "check": "npm run check:html && npm run check:links && npm run check:claims",
     "check:html": "html-validate \"*.html\"",
     "check:links": "node scripts/check-links.mjs",
     "check:claims": "node scripts/check-claims.mjs",
     "audit:security": "npm audit --audit-level=low",
-    "deploy:netlify": "netlify deploy --dir=dist --prod",
-    "deploy:vercel": "vercel deploy dist --prod --yes",
     "test": "npm run check"
   },
   "devDependencies": {
