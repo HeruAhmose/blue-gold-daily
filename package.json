@@ -27,12 +27,10 @@
     "test": "npm run check"
   },
   "devDependencies": {
-    "@lhci/cli": "0.13.0",
-    "html-validate": "8.29.0",
-    "netlify-cli": "17.38.1",
+    "@lhci/cli": "0.15.1",
+    "html-validate": "11.7.0",
     "serve": "14.2.6",
-    "vercel": "59.1.3",
-    "wait-on": "7.2.0"
+    "wait-on": "9.1.0"
   },
   "keywords": [
     "trai",
