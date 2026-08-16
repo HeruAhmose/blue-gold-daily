@@ -14,12 +14,16 @@
     "node": ">=20"
   },
   "scripts": {
-    "dev": "npx --yes serve@14 . -l 4173",
+    "dev": "serve . -l 4173",
+    "serve:dist": "serve dist -l 4173",
     "build": "node scripts/build.mjs",
     "check": "npm run check:html && npm run check:links && npm run check:claims",
-    "check:html": "npx --yes html-validate@8 \"*.html\"",
+    "check:html": "html-validate \"*.html\"",
     "check:links": "node scripts/check-links.mjs",
     "check:claims": "node scripts/check-claims.mjs",
+    "audit:security": "npm audit --audit-level=low",
+    "deploy:netlify": "netlify deploy --dir=dist --prod",
+    "deploy:vercel": "vercel deploy dist --prod --yes",
     "test": "npm run check"
   },
   "devDependencies": {
