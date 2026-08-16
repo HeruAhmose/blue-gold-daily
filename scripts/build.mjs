@@ -7,12 +7,18 @@
  * SITE_URL at deploy time, so no production URL is ever committed and the repo
  * cannot ship pointing at a placeholder.
  *
+ * The build also injects a page-specific Content Security Policy. Inline
+ * JavaScript is allowed only when its exact SHA-256 hash matches the built
+ * document. Inline styles remain allowed because the source pages intentionally
+ * use component-local <style> blocks and style attributes.
+ *
  *   SITE_URL=https://bluegolddaily.com npm run build
  *
  * Output lands in dist/ so the source tree is never mutated.
  */
 import { readFileSync, writeFileSync, mkdirSync, cpSync, readdirSync, rmSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
+import { createHash } from 'node:crypto';
 
 const PLACEHOLDER = 'https://bluegolddaily.com';
 const SITE = (process.env.SITE_URL || PLACEHOLDER).replace(/\/$/, '');
@@ -23,6 +29,37 @@ if (!/^https:\/\//.test(SITE)) {
   process.exit(1);
 }
 
+function sha256Source(text) {
+  return `'sha256-${createHash('sha256').update(text, 'utf8').digest('base64')}'`;
+}
+
+function injectCsp(html) {
+  const inlineScriptHashes = [];
+  const scriptRe = /<script\b(?![^>]*\bsrc\s*=)[^>]*>([\s\S]*?)<\/script>/gi;
+  let match;
+  while ((match = scriptRe.exec(html)) !== null) {
+    inlineScriptHashes.push(sha256Source(match[1]));
+  }
+
+  const scriptSources = ["'self'", "'inline-speculation-rules'", ...new Set(inlineScriptHashes)].join(' ');
+  const policy = [
+    "default-src 'self'",
+    `script-src ${scriptSources}`,
+    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+    "font-src 'self' https://fonts.gstatic.com data:",
+    "img-src 'self' data:",
+    "connect-src 'self'",
+    "media-src 'self'",
+    "object-src 'none'",
+    "base-uri 'self'",
+    "form-action 'self'",
+    "upgrade-insecure-requests"
+  ].join('; ');
+
+  const meta = `<meta http-equiv="Content-Security-Policy" content="${policy}">`;
+  return html.replace(/<meta charset="UTF-8">/i, (charset) => `${charset}\n${meta}`);
+}
+
 if (existsSync(OUT)) rmSync(OUT, { recursive: true });
 mkdirSync(OUT, { recursive: true });
 
@@ -31,7 +68,7 @@ for (const c of copy) if (existsSync(c)) cpSync(c, join(OUT, c), { recursive: tr
 
 const pages = readdirSync('.').filter((f) => f.endsWith('.html'));
 for (const p of pages) {
-  const html = readFileSync(p, 'utf8').replaceAll(PLACEHOLDER, SITE);
+  const html = injectCsp(readFileSync(p, 'utf8').replaceAll(PLACEHOLDER, SITE));
   writeFileSync(join(OUT, p), html);
 }
 
