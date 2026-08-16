@@ -27,10 +27,7 @@
     "test": "npm run check"
   },
   "devDependencies": {
-    "@lhci/cli": "0.15.1",
-    "html-validate": "11.7.0",
-    "serve": "14.2.6",
-    "wait-on": "9.1.0"
+    "html-validate": "11.7.0"
   },
   "keywords": [
     "trai",
