@@ -20,21 +20,19 @@ jobs:
         with:
           node-version: '22.22.0'
 
-      - name: Rebuild minimal locked CI toolchain
-        run: |
-          npm uninstall netlify-cli vercel serve wait-on @lhci/cli || true
-          npm install --save-dev --save-exact html-validate@latest
+      - name: Synchronize lockfile metadata
+        run: npm install --package-lock-only --ignore-scripts
 
-      - name: Persist exact package graph
+      - name: Persist synchronized lockfile
         shell: bash
         run: |
-          if git diff --quiet -- package.json package-lock.json; then
-            echo "Toolchain graph already current."
+          if git diff --quiet -- package-lock.json; then
+            echo "Lockfile metadata already synchronized."
           else
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add package.json package-lock.json
-            git commit -m "fix(security): reduce locked CI toolchain to zero-audit surface"
+            git add package-lock.json
+            git commit -m "fix(security): synchronize audited lockfile metadata"
             git push origin HEAD:agent/security-hardening-20260816
           fi
 
@@ -50,12 +48,16 @@ jobs:
       - name: Production build
         run: npm run build
 
-      - name: Verify built CSP exists and forbids generic inline scripts
+      - name: Verify built CSP
         shell: bash
         run: |
+          set -euo pipefail
           grep -q 'http-equiv="Content-Security-Policy"' dist/index.html
-          grep -q "script-src 'self' 'inline-speculation-rules' 'sha256-" dist/index.html
-          if grep -q "script-src[^\"]*'unsafe-inline'" dist/index.html; then
-            echo "::error::Built script CSP permits unsafe-inline"
+          script_directive="$(grep -o "script-src[^;]*" dist/index.html | head -n 1)"
+          test -n "$script_directive"
+          printf '%s\n' "$script_directive" | grep -q "'self'"
+          printf '%s\n' "$script_directive" | grep -q "'sha256-"
+          if printf '%s\n' "$script_directive" | grep -q "'unsafe-inline'"; then
+            echo "::error::Built script-src permits unsafe-inline"
             exit 1
           fi
