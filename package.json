@@ -22,7 +22,14 @@
     "check:claims": "node scripts/check-claims.mjs",
     "test": "npm run check"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@lhci/cli": "0.13.0",
+    "html-validate": "8.29.0",
+    "netlify-cli": "17.38.1",
+    "serve": "14.2.6",
+    "vercel": "59.1.3",
+    "wait-on": "7.2.0"
+  },
   "keywords": [
     "trai",
     "true-melange",
