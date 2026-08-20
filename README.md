@@ -54,8 +54,12 @@ sitemap, robots, and the ecosystem registry at build time.
 | `NETLIFY_AUTH_TOKEN`, `NETLIFY_SITE_ID` | secrets | Netlify |
 | `VERCEL_TOKEN` | secret | Vercel |
 
-## Still open
+## Forms
 
-Forms validate and give real feedback but store nothing. Netlify Forms needs
-one attribute on the `<form>` tag; Formspree or Resend need one `fetch`. The
-insertion point is marked in `assets/site.js`.
+`join.html`'s two forms (drinkers, partners) submit through a shared
+`TMForm` helper in `assets/site.js`: a hidden `_gotcha` honeypot, a real
+`fetch` POST to a Formspree endpoint, a disabled/"Sending…" state for the
+duration of the request, and an `aria-live` status region for the
+success or failure message. Nothing is faked and nothing is queued for
+later — a submission either reaches Formspree or the visitor sees a
+failure message telling them so.
