@@ -8,6 +8,24 @@ Proprietary. All rights reserved. See [LICENSE](LICENSE).
 A saffron-hemp ready-to-drink tea. Seven pages, no framework, no build step
 beyond domain injection.
 
+## Part of TRAI
+
+This is organ **02, Heart — biological sovereignty** — one of seven ventures
+framed as organs of TRAI (the Tamerian Renaissance Alliance Initiative), one
+regenerative organism. Status: **Formulation set · entity pending**.
+
+| # | Organ · role | Venture | Status | Where it lives |
+|---|---|---|---|---|
+| 01 | Skeleton — material sovereignty | Tamerian Materials | U.S. provisional filed | own repo: [`tamerian-materials`](https://github.com/HeruAhmose/tamerian-materials) → [tamerian-materials.com](https://tamerian-materials.com/) |
+| **02** | **Heart — biological sovereignty** | **True Melange Φ** | **Formulation set · entity pending** | **you are here** |
+| 03 | Brain — cognitive sovereignty | Queen Califia | Demo standing | own repo: [`QueenCalifia-CyberAI`](https://github.com/HeruAhmose/QueenCalifia-CyberAI) → [queencalifia-cyberai.web.app](https://queencalifia-cyberai.web.app/) |
+| 04 | Vessels — mobility sovereignty | Mela Nation | EIN filed · early development | a page inside [`trai-portfolio`](https://github.com/HeruAhmose/trai-portfolio) (the estate) — no separate repo |
+| 05 | Skin — identity sovereignty | MeLaNiNa | EIN filed · early development | a page inside [`trai-portfolio`](https://github.com/HeruAhmose/trai-portfolio) (the estate) — no separate repo |
+| 06 | Hands — community reach | TechBridge Collective | Designed · not yet operating | own repo: [`techbridge-collective`](https://github.com/HeruAhmose/techbridge-collective) → [techbridge-collective.org](https://techbridge-collective.org/) |
+| 07 | Lymphatic — regenerative return | The Peoples Foundation | EIN obtained · exemption pending | a page inside [`trai-portfolio`](https://github.com/HeruAhmose/trai-portfolio) (the estate) — no separate repo |
+
+Entry gate that names and links all seven: [`peoples-portfolio`](https://github.com/HeruAhmose/peoples-portfolio).
+
 ## Run
 
 ```bash
