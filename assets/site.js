@@ -1,5 +1,5 @@
 /* =====================================================================
-   True Melange Φ — site runtime
+   True Mélange Φ — site runtime
    No framework. Web Components for chrome, WebGL for atmosphere,
    canvas2D for the phyllotaxis mark, native APIs everywhere else.
    ===================================================================== */
@@ -35,7 +35,7 @@ customElements.define('site-nav', class extends HTMLElement{
     }).join('');
     this.innerHTML =
       '<nav class="nav">'+
-        '<a class="brand" href="index.html"><b>Φ</b><span>True Melange</span></a>'+
+        '<a class="brand" href="index.html"><b>Φ</b><span>True Mélange</span></a>'+
         '<div class="links" id="navlinks">'+links+
           '<a class="ext" data-trai-property="trai" href="'+window.PEOPLES_PORTFOLIO+'" target="_blank" rel="noopener">Portfolio ↗</a>'+
         '</div>'+
@@ -58,7 +58,7 @@ customElements.define('site-footer', class extends HTMLElement{
       '<p class="std">Vast in vision. Exact in claim.</p>'+
       '<p class="spec" style="margin:0">Concord, North Carolina</p>'+
       '<div class="cols">'+
-        '<div><h5>True Melange Φ</h5>'+
+        '<div><h5>True Mélange Φ</h5>'+
           '<a href="product.html">Blue-Gold Daily</a>'+
           '<a href="layers.html">The Φ Layer System</a>'+
           '<a href="science.html">Evidence</a></div>'+
@@ -308,7 +308,7 @@ window.TMForm = function(formId,msgId,ok){
     m.textContent='Sending…';
 
     var data=new FormData(f);
-    data.append('_subject','True Melange \u03a6 — '+formId);
+    data.append('_subject','True Mélange \u03a6 — '+formId);
     data.append('form',formId);
 
     fetch(endpoint,{method:'POST',body:data,headers:{'Accept':'application/json'}})

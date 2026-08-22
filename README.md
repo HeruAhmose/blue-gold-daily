@@ -1,4 +1,4 @@
-# Blue-Gold Daily — True Melange Φ
+# Blue-Gold Daily — True Mélange Φ
 
 [![CI](https://github.com/HeruAhmose/blue-gold-daily/actions/workflows/ci.yml/badge.svg)](https://github.com/HeruAhmose/blue-gold-daily/actions/workflows/ci.yml)
 [![Deploy](https://github.com/HeruAhmose/blue-gold-daily/actions/workflows/deploy.yml/badge.svg)](https://github.com/HeruAhmose/blue-gold-daily/actions/workflows/deploy.yml)
@@ -17,7 +17,7 @@ regenerative organism. Status: **Formulation set · entity pending**.
 | # | Organ · role | Venture | Status | Where it lives |
 |---|---|---|---|---|
 | 01 | Skeleton — material sovereignty | Tamerian Materials | U.S. provisional filed | own repo: [`tamerian-materials`](https://github.com/HeruAhmose/tamerian-materials) → [tamerian-materials.com](https://tamerian-materials.com/) |
-| **02** | **Heart — biological sovereignty** | **True Melange Φ** | **Formulation set · entity pending** | **you are here** |
+| **02** | **Heart — biological sovereignty** | **True Mélange Φ** | **Formulation set · entity pending** | **you are here** |
 | 03 | Brain — cognitive sovereignty | Queen Califia | Demo standing | own repo: [`QueenCalifia-CyberAI`](https://github.com/HeruAhmose/QueenCalifia-CyberAI) → [queencalifia-cyberai.web.app](https://queencalifia-cyberai.web.app/) |
 | 04 | Vessels — mobility sovereignty | Mela Nation | EIN filed · early development | a page inside [`trai-portfolio`](https://github.com/HeruAhmose/trai-portfolio) (the estate) — no separate repo |
 | 05 | Skin — identity sovereignty | MeLaNiNa | EIN filed · early development | a page inside [`trai-portfolio`](https://github.com/HeruAhmose/trai-portfolio) (the estate) — no separate repo |
