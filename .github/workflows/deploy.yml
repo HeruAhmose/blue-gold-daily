@@ -31,7 +31,7 @@ jobs:
       - run: npm run check:links
 
   build:
-    name: Build
+    name: Build and runtime smoke
     needs: guard
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -49,10 +49,36 @@ jobs:
         env:
           SITE_URL: ${{ vars.SITE_URL }}
         run: |
+          set -euo pipefail
           if [ -z "$SITE_URL" ]; then
             echo "::warning::SITE_URL repository variable is not set; building with the placeholder domain."
           fi
           npm run build
+          test -s dist/index.html
+          printf '%s\n' "$GITHUB_SHA" > dist/deploy-commit.txt
+          cat > dist/deployment-meta.json <<EOF
+          {"sha":"$GITHUB_SHA","repository":"$GITHUB_REPOSITORY","ref":"$GITHUB_REF_NAME"}
+          EOF
+          grep -Fqx "$GITHUB_SHA" dist/deploy-commit.txt
+          grep -Fq '"sha":"'$GITHUB_SHA'"' dist/deployment-meta.json
+
+      - name: Execute built site in headless Chrome
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m http.server 4173 --directory dist >/tmp/blue-gold-http.log 2>&1 &
+          pid=$!
+          trap 'kill "$pid" 2>/dev/null || true' EXIT
+          for _ in $(seq 1 30); do
+            curl --fail --silent http://127.0.0.1:4173/ >/dev/null && break
+            sleep 1
+          done
+          chrome="$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)"
+          test -n "$chrome"
+          "$chrome" --headless --no-sandbox --disable-gpu --virtual-time-budget=8000 --dump-dom \
+            http://127.0.0.1:4173/ > /tmp/blue-gold-dom.html
+          grep -Eiq 'Blue Gold|True Mélange|Mélange' /tmp/blue-gold-dom.html
+          echo 'LOCAL_BROWSER_RENDER=PASS'
 
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
@@ -78,3 +104,37 @@ jobs:
         with: { path: dist }
       - id: deploy
         uses: actions/deploy-pages@cd2ce8fcbc39b97be8ca5fce6e763baed58fa128 # v5.0.0
+
+  certify:
+    name: Public Pages certification
+    needs: pages
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Require exact deployed SHA
+        shell: bash
+        run: |
+          set -euo pipefail
+          base='https://heruahmose.github.io/blue-gold-daily'
+          for _ in $(seq 1 30); do
+            status="$(curl --silent --location --output /tmp/deploy-commit --write-out '%{http_code}' "$base/deploy-commit.txt")"
+            if [ "$status" = 200 ] && [ "$(tr -d '\r\n' < /tmp/deploy-commit)" = "$GITHUB_SHA" ]; then
+              break
+            fi
+            sleep 10
+          done
+          test "$(tr -d '\r\n' < /tmp/deploy-commit)" = "$GITHUB_SHA"
+          curl --fail --silent --show-error --location "$base/deployment-meta.json" > /tmp/deployment-meta.json
+          grep -Fq '"sha":"'$GITHUB_SHA'"' /tmp/deployment-meta.json
+          echo 'PUBLIC_DEPLOYMENT_IDENTITY=PASS'
+
+      - name: Execute public URL in Chrome
+        shell: bash
+        run: |
+          set -euo pipefail
+          chrome="$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)"
+          test -n "$chrome"
+          "$chrome" --headless --no-sandbox --disable-gpu --virtual-time-budget=8000 --dump-dom \
+            https://heruahmose.github.io/blue-gold-daily/ > /tmp/public-dom.html
+          grep -Eiq 'Blue Gold|True Mélange|Mélange' /tmp/public-dom.html
+          echo 'PUBLIC_BROWSER_RENDER=PASS'
