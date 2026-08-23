@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The Φ Layer System — True Mélange Φ</title>
-<meta name="description" content="Nine Fibonacci-indexed formulation layers. Each carries a colour, a story, a ritual and a tested function.">
+<meta name="description" content="Nine Fibonacci-indexed formulation layers expressed as one biological, sensory, and sovereignty architecture.">
 <meta name="author" content="Jonathan Peoples">
 <meta name="theme-color" content="#d6a33a">
 <meta property="og:title" content="The Φ Layer System — True Mélange Φ">
-<meta property="og:description" content="Nine Fibonacci-indexed formulation layers. Each carries a colour, a story, a ritual and a tested function.">
+<meta property="og:description" content="Nine Fibonacci-indexed formulation layers expressed as one biological, sensory, and sovereignty architecture.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://bluegolddaily.com/og.png">
 <meta property="og:url" content="https://bluegolddaily.com/layers.html">
@@ -18,106 +18,62 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..900,0..100,0..1;1,9..144,300..900,0..100,0..1&family=Archivo:wght@200;300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/base.css">
 <style>
-
-.stack{border-top:1px solid var(--rule)}
-.lyr{display:grid;grid-template-columns:5rem 1fr auto;gap:1.2rem;align-items:center;width:100%;
-  padding:1.5rem 0;border:0;border-bottom:1px solid var(--rule);background:none;color:inherit;font:inherit;
-  text-align:left;cursor:pointer;transition:padding-left .4s var(--ease),background .4s var(--ease)}
-.lyr:hover,.lyr[aria-expanded=true]{padding-left:1.1rem;background:linear-gradient(90deg,rgba(214,163,58,.08),transparent 62%)}
-.lyr .i{font-family:var(--mono);font-size:.76rem;color:var(--gold);letter-spacing:.06em}
-.lyr .n{font-family:var(--display);font-size:clamp(1.15rem,2.4vw,1.6rem);font-weight:400;line-height:1.14}
-.lyr .sw{width:2.9rem;height:.4rem;border-radius:99px;flex:none}
-.pnl{display:grid;grid-template-rows:0fr;transition:grid-template-rows .55s var(--ease);border-bottom:1px solid var(--rule)}
-.pnl.open{grid-template-rows:1fr}
-.pnl > div{overflow:hidden}
-.pnl .in{padding:.4rem 0 2rem;display:grid;gap:1rem;max-width:var(--measure)}
-.pnl .in p{margin:0}
-.pnl .in .fn{color:var(--bone-dim);font-size:.95rem}
-
+.layer-stage{position:relative;display:grid;grid-template-columns:minmax(17rem,.72fr) minmax(0,1.28fr);gap:clamp(1.5rem,4vw,4.5rem);align-items:start}
+.layer-atlas{position:sticky;top:6rem;min-height:38rem;border:1px solid var(--rule);background:radial-gradient(circle at 50% 34%,rgba(214,163,58,.12),transparent 28%),linear-gradient(150deg,rgba(20,15,10,.78),rgba(7,7,8,.92));overflow:hidden;padding:1.4rem}
+.layer-atlas:before{content:"";position:absolute;inset:-20%;background:repeating-radial-gradient(ellipse at 50% 43%,transparent 0 36px,rgba(214,163,58,.055) 37px 38px,transparent 39px 74px);transform:rotate(-9deg);pointer-events:none}
+.atlas-head{position:relative;z-index:2;display:flex;justify-content:space-between;gap:1rem;align-items:start}.atlas-kicker{font:500 .6rem/1.3 var(--mono);letter-spacing:.22em;color:var(--gold);text-transform:uppercase}.atlas-count{font:400 .58rem/1.3 var(--mono);letter-spacing:.16em;color:var(--bone-mute)}
+.phi-spine{position:relative;height:29rem;margin-top:1.5rem}.phi-spine .axis{position:absolute;left:50%;top:2%;bottom:2%;width:1px;background:linear-gradient(transparent,var(--gold),#5E86C9,var(--gold),transparent);opacity:.45}.phi-spine .halo{position:absolute;left:50%;top:48%;width:13rem;height:13rem;border:1px solid rgba(214,163,58,.12);border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 0 70px rgba(214,163,58,.05) inset}.phi-node{--c:#d6a33a;position:absolute;left:50%;width:2.35rem;height:2.35rem;margin:-1.175rem;border-radius:50%;border:1px solid color-mix(in srgb,var(--c) 54%,transparent);background:radial-gradient(circle,var(--c) 0 7%,rgba(7,7,8,.96) 9% 100%);box-shadow:0 0 0 0 color-mix(in srgb,var(--c) 0%,transparent);cursor:pointer;transition:transform .35s var(--ease),box-shadow .35s var(--ease),border-color .35s var(--ease);z-index:3}.phi-node:after{content:attr(data-index);position:absolute;left:3rem;top:50%;transform:translateY(-50%);white-space:nowrap;font:500 .55rem/1 var(--mono);letter-spacing:.14em;color:var(--bone-mute)}.phi-node:nth-of-type(even):after{left:auto;right:3rem;text-align:right}.phi-node:hover,.phi-node[aria-pressed=true]{transform:scale(1.22);border-color:var(--c);box-shadow:0 0 34px color-mix(in srgb,var(--c) 25%,transparent)}.phi-node[aria-pressed=true]:before{content:"";position:absolute;inset:-8px;border:1px solid color-mix(in srgb,var(--c) 28%,transparent);border-radius:50%;animation:phiPulse 2.2s ease-in-out infinite}
+@keyframes phiPulse{0%,100%{transform:scale(.92);opacity:.25}50%{transform:scale(1.18);opacity:.75}}
+.stack{border-top:1px solid var(--rule)}.lyr-wrap{position:relative;border-bottom:1px solid var(--rule)}.lyr{display:grid;grid-template-columns:4.25rem 1fr auto;gap:1.2rem;align-items:center;width:100%;padding:1.55rem .8rem;border:0;background:none;color:inherit;font:inherit;text-align:left;cursor:pointer;transition:padding-left .4s var(--ease),background .4s var(--ease),transform .4s var(--ease)}.lyr:hover,.lyr[aria-expanded=true]{padding-left:1.25rem;background:linear-gradient(90deg,color-mix(in srgb,var(--layer) 8%,transparent),transparent 70%)}.lyr[aria-expanded=true]{transform:translateX(.2rem)}.lyr .i{font-family:var(--mono);font-size:.72rem;color:var(--layer);letter-spacing:.08em}.lyr .n{font-family:var(--display);font-size:clamp(1.15rem,2.4vw,1.65rem);font-weight:430;line-height:1.08}.lyr .sig{display:flex;gap:.28rem;align-items:center}.lyr .sig i{display:block;width:.35rem;height:.35rem;border-radius:50%;background:var(--layer);opacity:.35}.lyr .sig i:nth-child(2){opacity:.65}.lyr .sig i:nth-child(3){opacity:1;box-shadow:0 0 14px var(--layer)}
+.pnl{display:grid;grid-template-rows:0fr;transition:grid-template-rows .55s var(--ease)}.pnl.open{grid-template-rows:1fr}.pnl>div{overflow:hidden}.pnl .in{padding:.15rem .8rem 2.1rem 5.05rem;display:grid;grid-template-columns:1.05fr .95fr;gap:1.4rem}.myth{font-family:var(--display);font-size:1.2rem;line-height:1.48;margin:0}.fn{margin:0;color:var(--bone-dim);font-size:.92rem;line-height:1.65}.ingredients{grid-column:1/-1;padding-top:1rem;border-top:1px solid var(--rule);font:500 .62rem/1.7 var(--mono);letter-spacing:.08em;color:var(--bone-mute)}.layer-role{font:500 .55rem/1.4 var(--mono);letter-spacing:.18em;color:var(--layer);text-transform:uppercase;margin-bottom:.45rem}.architecture-note{margin-top:2.2rem;padding:1.1rem 1.2rem;border-left:2px solid var(--gold);background:linear-gradient(90deg,rgba(214,163,58,.055),transparent);color:var(--bone-dim);font-size:.9rem;line-height:1.7}
+@media(max-width:820px){.layer-stage{grid-template-columns:1fr}.layer-atlas{position:relative;top:auto;min-height:30rem}.phi-spine{height:22rem}.pnl .in{grid-template-columns:1fr;padding-left:.8rem}.lyr{grid-template-columns:3.5rem 1fr auto}}
+@media(prefers-reduced-motion:reduce){.phi-node[aria-pressed=true]:before{animation:none}.phi-node,.lyr{transition:none}}
 </style>
-<script type="speculationrules">
-{"prerender":[{"where":{"and":[{"href_matches":"/*.html"},{"not":{"selector_matches":".ext"}}]},"eagerness":"moderate"}]}
-</script>
+<script type="speculationrules">{"prerender":[{"where":{"and":[{"href_matches":"/*.html"},{"not":{"selector_matches":".ext"}}]},"eagerness":"moderate"}]}</script>
 </head>
 <body>
-<a class="sr" href="#main">Skip to content</a>
-<site-nav></site-nav>
+<a class="sr" href="#main">Skip to content</a><site-nav></site-nav>
 <main id="main">
-
 <header class="masthead"><div class="wrap">
   <div class="idx rv">02 / FORMULATION ARCHITECTURE</div>
   <h1 class="rv display">The Φ <em>Layer System</em></h1>
-  <p class="lede rv">Every product in the line is built from the same Fibonacci-indexed layers. Each one is simultaneously a piece of the mythos, a ritual element, and an ingredient group with a real function. A product activates the layers it needs; the rest stay dormant for other lanes.</p>
+  <p class="lede rv">Nine indexed layers, one formulation language. Each layer has a sensory identity, a material role, and a place in the larger sovereignty story. Products activate only the layers appropriate to their formulation lane; the architecture is a design framework, not a claim that every ingredient produces a clinical outcome.</p>
 </div></header>
-
-<section>
-  <div class="wrap">
-    <div class="stack rv" id="stack"></div>
-    <p class="spec rv" style="margin-top:2rem;color:var(--bone-mute)">Φ-21 is the only layer that is not an ingredient. It is documented in full on the <a href="mission.html" style="color:var(--gold)">sovereignty loop</a>.</p>
+<section><div class="wrap">
+  <div class="layer-stage">
+    <aside class="layer-atlas rv" aria-label="Phi layer architecture">
+      <div class="atlas-head"><div><div class="atlas-kicker">Φ ARCHITECTURE /// LIVING INDEX</div><p class="spec" style="margin:.55rem 0 0;color:var(--bone-dim)">Select a node to synchronize the formulation layer.</p></div><div class="atlas-count">09 LAYERS<br>01 SYSTEM</div></div>
+      <div class="phi-spine" id="phiSpine"><div class="axis"></div><div class="halo"></div></div>
+    </aside>
+    <div><div class="stack rv" id="stack"></div><div class="architecture-note rv"><strong style="color:var(--gold);font-family:var(--mono);font-size:.65rem;letter-spacing:.12em">Φ-21 / SOVEREIGNTY LOOP</strong><br>Φ-21 is intentionally different: it is not an ingredient layer. It describes the return path connecting product value to community infrastructure, representation, and regenerative benefit. <a href="mission.html" style="color:var(--gold)">Read the sovereignty loop →</a></div></div>
   </div>
-</section>
-
+</div></section>
 </main>
-<page-pager></page-pager>
-<site-footer></site-footer>
-
+<page-pager></page-pager><site-footer></site-footer>
 <script src="assets/site.js"></script>
 <script>
-
 var L=[
- {i:'Φ-1',n:'Red-Gold Core',c:'linear-gradient(90deg,#F0C463,#A8431F)',
-  m:'The spice itself. The gold of the queendom, and the heart of the blend.',
-  f:'Identity, apocarotenoid mood and antioxidant support.',
-  g:'SAFFRON · CROCIN · CROCETIN · SAFRANAL · GARDENIA APOCAROTENOIDS'},
- {i:'Φ-1',n:'Soma Matrix',c:'linear-gradient(90deg,#8A9A5B,#D6A33A)',
-  m:'The body and the earth. Hemp as connective material.',
-  f:'Nutritional carrier, lipid and peptide base.',
-  g:'HEMPSEED OIL · HEMP SEED PROTEIN · GRAS INPUTS ONLY'},
- {i:'Φ-2',n:'Spice Flame',c:'linear-gradient(90deg,#D6A33A,#8A3A12)',
-  m:'The caravan, the hearth, the ritual fire.',
-  f:'Flavour, warmth and sensory ritual.',
-  g:'CINNAMON · CARDAMOM · GINGER · CACAO IN ELIXIR VARIANTS'},
- {i:'Φ-3',n:'Mind Lattice',c:'linear-gradient(90deg,#7FA87F,#3F6B54)',
-  m:'Clarity. The lattice of thought.',
-  f:'Focus and calm alertness.',
-  g:'GREEN TEA · L-THEANINE · BACOPA · RHODIOLA · SCHISANDRA'},
- {i:'Φ-5',n:'Longevity Root',c:'linear-gradient(90deg,#8E2F4A,#4A1D3A)',
-  m:'The deep roots. The ancestral layer.',
-  f:'Polyphenol antioxidant and inflammatory balance.',
-  g:'POMEGRANATE · AMLA · TURMERIC · BLACK SEED'},
- {i:'Φ-8',n:'Mito-Fungal Web',c:'linear-gradient(90deg,#7A6A52,#3A3026)',
-  m:'The mycelial network beneath the sand.',
-  f:'Cellular maintenance and mitochondrial support.',
-  g:'ERGOTHIONEINE MUSHROOMS · LION\u2019S MANE · SPERMIDINE FERMENT · UROLITHIN PATHWAY'},
- {i:'Φ-13',n:'BioDelivery Shell',c:'linear-gradient(90deg,#D9D2C4,#8E8878)',
-  m:'The vessel. The protective shell.',
-  f:'Controlled delivery and stability.',
-  g:'EMULSION · HEMP-CNC PICKERING · PHYTOSOME · CYCLODEXTRIN · SMEDDS'},
- {i:'Veil',n:'The Blue Veil',c:'linear-gradient(90deg,#5E86C9,#122E5C)',
-  m:'The spice sign. The visible signature.',
-  f:'Signature colour identity, within authorized food categories only.',
-  g:'GALDIERIA EXTRACT BLUE · BUTTERFLY PEA FLOWER'},
- {i:'Φ-21',n:'Sovereignty Loop',c:'linear-gradient(90deg,#F0C463,#D6A33A,#5E86C9)',
-  m:'The wheel, and the return to the community.',
-  f:'Not an ingredient. The systemic layer connecting every product to the whole organism.',
-  g:'TECHBRIDGE · PEOPLES FOUNDATION · REPRESENTATION · CONCORD · BLACK-OWNED AGRICULTURE'}
+ {i:'Φ-1',n:'Red-Gold Core',hex:'#D9A441',role:'SIGNATURE CORE',m:'The spice itself. Gold, warmth, and the visual heart of the blend.',f:'Defines the saffron-forward identity and apocarotenoid ingredient layer.',g:'SAFFRON · CROCIN · CROCETIN · SAFRANAL · GARDENIA APOCAROTENOIDS'},
+ {i:'Φ-1',n:'Soma Matrix',hex:'#82935B',role:'CARRIER MATRIX',m:'The body and the earth. Hemp as connective material.',f:'Provides the nutritional carrier and lipid/protein base for compatible formulation lanes.',g:'HEMPSEED OIL · HEMP SEED PROTEIN · GRAS INPUTS ONLY'},
+ {i:'Φ-2',n:'Spice Flame',hex:'#B96524',role:'SENSORY HEAT',m:'The caravan, the hearth, the ritual fire.',f:'Builds aroma, warmth, bitterness balance, and sensory ritual.',g:'CINNAMON · CARDAMOM · GINGER · CACAO IN ELIXIR VARIANTS'},
+ {i:'Φ-3',n:'Mind Lattice',hex:'#639074',role:'BOTANICAL LATTICE',m:'Clarity. The lattice of thought.',f:'Organizes tea, amino-acid, and botanical components selected for the intended product brief.',g:'GREEN TEA · L-THEANINE · BACOPA · RHODIOLA · SCHISANDRA'},
+ {i:'Φ-5',n:'Longevity Root',hex:'#8E4057',role:'POLYPHENOL ROOT',m:'The deep roots. The ancestral layer.',f:'Groups polyphenol-rich and spice-derived ingredients within the formulation architecture.',g:'POMEGRANATE · AMLA · TURMERIC · BLACK SEED'},
+ {i:'Φ-8',n:'Mito-Fungal Web',hex:'#74644D',role:'FERMENT + FUNGI WEB',m:'The mycelial network beneath the sand.',f:'Groups mushroom and fermentation-derived ingredients for lanes that call for them.',g:'ERGOTHIONEINE MUSHROOMS · LION’S MANE · SPERMIDINE FERMENT · UROLITHIN PATHWAY'},
+ {i:'Φ-13',n:'BioDelivery Shell',hex:'#BEB7A9',role:'DELIVERY SHELL',m:'The vessel. The protective shell.',f:'Represents emulsion, dispersion, and delivery-system choices used to manage stability and format.',g:'EMULSION · HEMP-CNC PICKERING · PHYTOSOME · CYCLODEXTRIN · SMEDDS'},
+ {i:'Veil',n:'The Blue Veil',hex:'#5E86C9',role:'VISUAL SIGNATURE',m:'The spice sign. The visible signature.',f:'Defines the blue visual identity only where the chosen color input is permitted for the specific food category and market.',g:'GALDIERIA EXTRACT BLUE · BUTTERFLY PEA FLOWER'},
+ {i:'Φ-21',n:'Sovereignty Loop',hex:'#D6A33A',role:'SYSTEM RETURN',m:'The wheel, and the return to the community.',f:'Not an ingredient. This layer connects the product system to community-facing infrastructure and regenerative return.',g:'TECHBRIDGE · PEOPLES FOUNDATION · REPRESENTATION · CONCORD · BLACK-OWNED AGRICULTURE'}
 ];
-var st=document.getElementById('stack');
+var st=document.getElementById('stack'), spine=document.getElementById('phiSpine'), buttons=[];
+function activate(k,scroll){buttons.forEach(function(b,i){b.setAttribute('aria-expanded',i===k?'true':'false');b.nextElementSibling.classList.toggle('open',i===k);});document.querySelectorAll('.phi-node').forEach(function(n,i){n.setAttribute('aria-pressed',i===k?'true':'false');});if(scroll&&buttons[k])buttons[k].scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'center'});}
 L.forEach(function(x,k){
-  var b=document.createElement('button');
-  b.className='lyr';b.type='button';b.setAttribute('aria-expanded','false');b.setAttribute('aria-controls','p'+k);
-  b.innerHTML='<span class="i">'+x.i+'</span><span class="n display">'+x.n+'</span><span class="sw" style="background:'+x.c+'"></span>';
-  var p=document.createElement('div');p.className='pnl';p.id='p'+k;
-  p.innerHTML='<div><div class="in"><p class="myth" style="font-size:1.12rem">'+x.m+'</p><p class="fn">'+x.f+'</p><p class="spec">'+x.g+'</p></div></div>';
-  b.addEventListener('click',function(){
-    var o=p.classList.toggle('open');
-    b.setAttribute('aria-expanded',o?'true':'false');
-  });
-  st.appendChild(b);st.appendChild(p);
+  var wrap=document.createElement('div');wrap.className='lyr-wrap';wrap.style.setProperty('--layer',x.hex);
+  var b=document.createElement('button');b.className='lyr';b.type='button';b.setAttribute('aria-expanded','false');b.setAttribute('aria-controls','p'+k);b.innerHTML='<span class="i">'+x.i+'</span><span class="n display">'+x.n+'</span><span class="sig" aria-hidden="true"><i></i><i></i><i></i></span>';
+  var p=document.createElement('div');p.className='pnl';p.id='p'+k;p.innerHTML='<div><div class="in"><div><div class="layer-role">'+x.role+'</div><p class="myth">'+x.m+'</p></div><p class="fn">'+x.f+'</p><p class="ingredients">'+x.g+'</p></div></div>';
+  b.addEventListener('click',function(){activate(k,false);});wrap.appendChild(b);wrap.appendChild(p);st.appendChild(wrap);buttons.push(b);
+  var n=document.createElement('button');n.className='phi-node';n.type='button';n.style.setProperty('--c',x.hex);n.style.top=(6+k*11)+'%';n.dataset.index=x.i+' · '+x.n;n.setAttribute('aria-label','Select '+x.n);n.setAttribute('aria-pressed','false');n.addEventListener('click',function(){activate(k,true);});spine.appendChild(n);
 });
-
+activate(0,false);
 </script>
-
-  <script src="shared/trai-organism-v5.js" data-trai-world="bluegold" data-trai-static="true" defer></script>
+<script src="shared/trai-organism-v5.js" data-trai-world="bluegold" data-trai-static="true" defer></script>
 </body>
 </html>
