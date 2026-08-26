@@ -23,7 +23,7 @@
     "test": "npm run check"
   },
   "devDependencies": {
-    "html-validate": "11.7.0"
+    "html-validate": "11.9.0"
   },
   "keywords": [
     "trai",
