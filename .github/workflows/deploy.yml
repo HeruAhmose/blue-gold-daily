@@ -27,8 +27,7 @@ jobs:
           cache: npm
       - run: npm ci --ignore-scripts
       - run: npm run audit:security
-      - run: npm run check:claims
-      - run: npm run check:links
+      - run: npm run check
 
   build:
     name: Build and runtime smoke
@@ -54,6 +53,7 @@ jobs:
             echo "::warning::SITE_URL repository variable is not set; building with the placeholder domain."
           fi
           npm run build
+          npm run check:truth -- --dist
           test -s dist/index.html
           printf '%s\n' "$GITHUB_SHA" > dist/deploy-commit.txt
           cat > dist/deployment-meta.json <<EOF

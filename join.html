@@ -55,7 +55,7 @@
         <div class="field"><label for="wCity">City</label><input id="wCity" name="city" type="text" placeholder="Charlotte, NC"></div>
         <button class="btn" type="submit">Join the first run</button>
         <p class="msg" id="wMsg" role="status" aria-live="polite"></p>
-        <p class="note">No spam. We will write when cans exist, and not before.</p>
+        <p class="note">No spam. We will write when cans exist, and not before. Submission is delivered by Formspree; do not include confidential, financial, medical, or authentication information.</p>
       </form>
       <form id="partnerForm" novalidate>
         <p class="eyebrow" style="margin:0 0 1.3rem">For partners</p>
@@ -67,7 +67,7 @@
         <div class="field"><label for="pEmail">Email</label><input id="pEmail" name="email" type="email" placeholder="you@company.com" required></div>
         <button class="btn" type="submit">Request the package</button>
         <p class="msg" id="pMsg" role="status" aria-live="polite"></p>
-        <p class="note">Formulation detail is released under a mutual NDA. Architecture, evidence and grant materials go out without one.</p>
+        <p class="note">Submission is delivered by Formspree; do not include confidential, financial, medical, or authentication information. Formulation detail is released only after a mutual NDA; architecture, evidence, and grant materials can be shared without one.</p>
       </form>
     </div>
   </div>
@@ -94,9 +94,8 @@
 <script src="assets/site.js"></script>
 <script>
 
-/* Formspree endpoint. Create two forms at formspree.io (free tier covers
-   50 submissions a month), then paste the IDs here. Until then the form
-   validates and tells visitors signup is not yet open. */
+/* Public Formspree delivery endpoint. The generated CSP allows this exact
+   provider origin; never place a secret in client-side source. */
 window.TM_FORM_ENDPOINT = 'https://formspree.io/f/xkjwnpde';
 
 TMForm('waitForm','wMsg','You are on the list. We will write when the first run is real.');

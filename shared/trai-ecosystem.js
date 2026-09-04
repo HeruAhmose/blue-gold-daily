@@ -1,10 +1,10 @@
 /**
  * TRAI ecosystem compatibility loader.
- * v4 consumers are forwarded to TRAI Organism Protocol v5.2.
+ * Legacy consumers are forwarded to the current TRAI Organism Protocol v5 runtime.
  */
 (function () {
   "use strict";
-  if (window.TRAIOrganismV5 && window.TRAIOrganismV5.version === "5.2.0") return;
+  if (window.TRAIOrganismV5) return;
 
   var current = document.currentScript;
   if (!current) return;

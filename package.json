@@ -15,15 +15,19 @@
   },
   "scripts": {
     "build": "node scripts/build.mjs",
-    "check": "npm run check:html && npm run check:links && npm run check:claims",
+    "check": "npm run check:html && npm run check:links && npm run check:claims && npm run check:truth",
     "check:html": "html-validate \"*.html\"",
     "check:links": "node scripts/check-links.mjs",
     "check:claims": "node scripts/check-claims.mjs",
+    "check:truth": "node scripts/check-public-truth.mjs",
     "audit:security": "npm audit --audit-level=low",
     "test": "npm run check"
   },
   "devDependencies": {
     "html-validate": "11.7.0"
+  },
+  "overrides": {
+    "fast-uri": "3.1.7"
   },
   "keywords": [
     "trai",
