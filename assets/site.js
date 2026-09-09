@@ -37,7 +37,7 @@ customElements.define('site-nav', class extends HTMLElement{
       '<nav class="nav">'+
         '<a class="brand" href="index.html"><b>Φ</b><span>True Mélange</span></a>'+
         '<div class="links" id="navlinks">'+links+
-          '<a class="ext" data-trai-property="trai" href="'+window.PEOPLES_PORTFOLIO+'" target="_blank" rel="noopener">Portfolio ↗</a>'+
+          '<a class="ext" data-trai-property="trai" href="'+window.PEOPLES_PORTFOLIO+'" target="_blank" rel="noopener">People’s Portfolio ↗</a>'+
         '</div>'+
         '<button class="navtoggle" aria-expanded="false" aria-controls="navlinks">Menu</button>'+
       '</nav>';

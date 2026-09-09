@@ -1,7 +1,7 @@
 {
   "$comment": "Canonical registry of every TRAI web property. Both stacks read this file to build their cross-site navigation, so a URL is changed in one place and every property follows. Stage values use the same vocabulary as the venture documents so nothing reads as further along than it is.",
-  "version": "1.1.0",
-  "updated": "2026-08-07",
+  "version": "1.2.0",
+  "updated": "2026-09-04",
   "organization": {
     "name": "Tamerian Renaissance Alliance Initiative",
     "short": "TRAI",
@@ -10,7 +10,8 @@
     "region": "NC",
     "country": "US",
     "github": "https://github.com/HeruAhmose",
-    "standard": "Vast in vision. Exact in claim."
+    "standard": "Vast in vision. Exact in claim.",
+    "doctrine": "Mandate of Mistrust"
   },
   "properties": [
     {
@@ -32,7 +33,7 @@
       "urlEnv": "VITE_URL_TRAI",
       "primary": true,
       "stage": "live",
-      "blurb": "The systems map connecting independent TRAI worlds."
+      "blurb": "One living Sovereignty Stack of seven independently viable, mutually reinforcing organs."
     },
     {
       "id": "tamerian",
@@ -42,7 +43,7 @@
       "url": "https://tamerian-materials.com/",
       "primary": false,
       "stage": "live",
-      "blurb": "Hemp-derived carbon composite. Patent 63/934,269."
+      "blurb": "Bio-derived multifunctional composites for self-powered sensing. U.S. provisional application 63/934,269."
     },
     {
       "id": "bluegold",
@@ -60,10 +61,10 @@
       "name": "Queen Califia",
       "full": "Queen Califia CyberAI",
       "role": "Cognitive sovereignty",
-      "url": "https://queencalifia-cyberai.web.app/",
+      "url": "https://heruahmose.github.io/QueenCalifia-CyberAI/",
       "primary": false,
       "stage": "live",
-      "blurb": "Autonomous cybersecurity on a triple-core architecture."
+      "blurb": "Human-authorized, evidence-bound cybersecurity command demo."
     },
     {
       "id": "techbridge",
@@ -80,7 +81,7 @@
       "name": "MeLaNiNa",
       "full": "MeLaNiNa",
       "role": "Identity sovereignty",
-      "url": "",
+      "url": "https://heruahmose.github.io/trai-portfolio/melanina",
       "primary": false,
       "stage": "building",
       "blurb": "Hemp apparel and cultural expression."
@@ -90,7 +91,7 @@
       "name": "Mela Nation",
       "full": "Mela Nation",
       "role": "Mobility sovereignty",
-      "url": "",
+      "url": "https://heruahmose.github.io/trai-portfolio/mela-nation",
       "primary": false,
       "stage": "building",
       "blurb": "Last-mile logistics and community access."
@@ -100,10 +101,10 @@
       "name": "The Peoples Foundation",
       "full": "The Peoples Foundation",
       "role": "Regenerative return",
-      "url": "",
+      "url": "https://heruahmose.github.io/trai-portfolio/peoples-foundation",
       "primary": false,
       "stage": "building",
-      "blurb": "508(c)(1)(a). Surplus returned to the community."
+      "blurb": "States that it operates under §508(c)(1)(A); no IRS determination or recognition is represented."
     }
   ]
 }

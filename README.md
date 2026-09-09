@@ -10,21 +10,27 @@ beyond domain injection.
 
 ## Part of TRAI
 
-This is organ **02, Heart — biological sovereignty** — one of seven ventures
-framed as organs of TRAI (the Tamerian Renaissance Alliance Initiative), one
-regenerative organism. Status: **Formulation set · entity pending**.
+This is organ **02, Heart — biological sovereignty** in TRAI (the Tamerian
+Renaissance Alliance Initiative): one living Sovereignty Stack of seven
+independently viable, mutually reinforcing organs. It is not a holding company
+or a disconnected portfolio. Status: **Formulation set · entity pending**.
 
 | # | Organ · role | Venture | Status | Where it lives |
 |---|---|---|---|---|
 | 01 | Skeleton — material sovereignty | Tamerian Materials | U.S. provisional filed | own repo: [`tamerian-materials`](https://github.com/HeruAhmose/tamerian-materials) → [tamerian-materials.com](https://tamerian-materials.com/) |
 | **02** | **Heart — biological sovereignty** | **True Mélange Φ** | **Formulation set · entity pending** | **you are here** |
-| 03 | Brain — cognitive sovereignty | Queen Califia | Demo standing | own repo: [`QueenCalifia-CyberAI`](https://github.com/HeruAhmose/QueenCalifia-CyberAI) → [queencalifia-cyberai.web.app](https://queencalifia-cyberai.web.app/) |
+| 03 | Brain — cognitive sovereignty | Queen Califia | Human-authorized command demo | own repo: [`QueenCalifia-CyberAI`](https://github.com/HeruAhmose/QueenCalifia-CyberAI) → [GitHub Pages](https://heruahmose.github.io/QueenCalifia-CyberAI/) |
 | 04 | Vessels — mobility sovereignty | Mela Nation | EIN filed · early development | a page inside [`trai-portfolio`](https://github.com/HeruAhmose/trai-portfolio) (the estate) — no separate repo |
 | 05 | Skin — identity sovereignty | MeLaNiNa | EIN filed · early development | a page inside [`trai-portfolio`](https://github.com/HeruAhmose/trai-portfolio) (the estate) — no separate repo |
 | 06 | Hands — community reach | TechBridge Collective | Designed · not yet operating | own repo: [`techbridge-collective`](https://github.com/HeruAhmose/techbridge-collective) → [techbridge-collective.org](https://techbridge-collective.org/) |
-| 07 | Lymphatic — regenerative return | The Peoples Foundation | EIN obtained · exemption pending | a page inside [`trai-portfolio`](https://github.com/HeruAhmose/trai-portfolio) (the estate) — no separate repo |
+| 07 | Lymphatic — regenerative return | The Peoples Foundation | Operating under §508(c)(1)(A) · no IRS determination represented | a page inside [`trai-portfolio`](https://github.com/HeruAhmose/trai-portfolio) (the estate) — no separate repo |
 
 Entry gate that names and links all seven: [`peoples-portfolio`](https://github.com/HeruAhmose/peoples-portfolio).
+
+TRAI's **Mandate of Mistrust** is the constitutional and epistemic rule across
+the Stack: no claim, source, model, operator, or automation receives authority
+merely by assertion. Authority requires evidence, provenance, and human
+authorization.
 
 ## Run
 
@@ -80,4 +86,6 @@ sitemap, robots, and the ecosystem registry at build time.
 duration of the request, and an `aria-live` status region for the
 success or failure message. Nothing is faked and nothing is queued for
 later — a submission either reaches Formspree or the visitor sees a
-failure message telling them so.
+failure message telling them so. The public endpoint is configured in
+`join.html`; the built Content Security Policy permits connections and form
+actions only to this site and Formspree's exact origin.

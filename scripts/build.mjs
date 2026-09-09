@@ -48,11 +48,11 @@ function injectCsp(html) {
     "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
     "font-src 'self' https://fonts.gstatic.com data:",
     "img-src 'self' data:",
-    "connect-src 'self'",
+    "connect-src 'self' https://formspree.io",
     "media-src 'self'",
     "object-src 'none'",
     "base-uri 'self'",
-    "form-action 'self'",
+    "form-action 'self' https://formspree.io",
     "upgrade-insecure-requests"
   ].join('; ');
 
