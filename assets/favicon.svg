@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="True Mélange Phi mark">
+  <rect width="64" height="64" rx="14" fill="#08070A"/>
+  <circle cx="32" cy="32" r="23" fill="none" stroke="#D6A33A" stroke-width="2" opacity=".65"/>
+  <path d="M20 18h17c8 0 12 4 12 10 0 7-5 11-13 11H27v10h-7V18zm7 6v9h9c4 0 6-2 6-5 0-3-2-4-6-4h-9z" fill="#F0C463"/>
+  <path d="M32 12v40" stroke="#A8431F" stroke-width="1.5" opacity=".8"/>
+</svg>
