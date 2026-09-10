@@ -1,0 +1,65 @@
+name: Validate Blue-Gold experience runtime
+
+on:
+  push:
+    branches:
+      - fix/experience-runtime-20260910
+
+permissions:
+  contents: write
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: '22.22.0'
+          cache: npm
+      - name: Apply exact experience repair
+        run: python3 scripts/apply-experience-runtime-repair.py
+      - name: Verify exact repair scope
+        shell: bash
+        run: |
+          set -euo pipefail
+          git diff --check
+          changed="$(git diff --name-only | sort)"
+          expected=$'assets/base.css\nassets/site.js\npackage.json'
+          printf '%s\n' "$changed"
+          test "$changed" = "$expected"
+          grep -Fq 'data-bluegold-sound' assets/site.js
+          grep -Fq 'TMSound' assets/site.js
+          grep -Fq 'audit:experience' package.json
+          test -s assets/favicon.svg
+          test -z "$(git diff --name-only -- package-lock.json)"
+      - name: Install and verify public contracts
+        run: |
+          npm ci --ignore-scripts
+          npm run audit:security
+          npm run check
+      - name: Build
+        env:
+          SITE_URL: https://bluegolddaily.com
+        run: npm run build
+      - name: Verify built listening layer and favicon
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -Fq 'data-bluegold-sound' dist/assets/site.js
+          test -s dist/assets/favicon.svg
+          npm run check:truth -- --dist
+      - name: Browser-certify opt-in audio, SFX, motion, mute, and reduced motion
+        run: npm run audit:experience
+      - name: Commit verified production changes
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'Heru_Ahmose'
+          git config user.email 'aitconsult22@gmail.com'
+          git add assets/base.css assets/site.js package.json
+          git commit -m 'feat(experience): add explicit Blue-Gold listening layer'
+          git push origin HEAD:fix/experience-runtime-20260910
