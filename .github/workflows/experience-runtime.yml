@@ -84,9 +84,6 @@ jobs:
           exit 1
 
       - name: Browser-certify explicit audio, SFX, motion, mute, reduced motion, and layout
-        env:
-          BLUEGOLD_BASE_URL: http://127.0.0.1:4190/
-          BLUEGOLD_CDP_URL: http://127.0.0.1:9240
         run: |
           npm run audit:experience
           cat bluegold-experience-audit.json
