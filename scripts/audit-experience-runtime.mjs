@@ -1,8 +1,8 @@
 import http from "node:http";
 import fs from "node:fs/promises";
 
-const BASE = process.env.BLUEGOLD_BASE_URL || "http://127.0.0.1:4190/";
-const CDP_HTTP = process.env.BLUEGOLD_CDP_URL || "http://127.0.0.1:9240";
+const BASE = "http://127.0.0.1:4190/";
+const CDP_HTTP = "http://127.0.0.1:9240";
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 function getText(url) {
@@ -10,9 +10,12 @@ function getText(url) {
     const req = http.get(url, { timeout: 2500 }, res => {
       let data = "";
       res.setEncoding("utf8");
-      res.on("data", chunk => { data += chunk; });
+      res.on("data", chunk => {
+        data += chunk;
+      });
       res.on("end", () => {
-        if ((res.statusCode || 0) >= 200 && (res.statusCode || 0) < 300) resolve(data);
+        if ((res.statusCode || 0) >= 200 && (res.statusCode || 0) < 300)
+          resolve(data);
         else reject(new Error(`HTTP ${res.statusCode} for ${url}`));
       });
     });
@@ -23,14 +26,20 @@ function getText(url) {
 
 async function waitFor(url, attempts = 20) {
   for (let i = 0; i < attempts; i++) {
-    try { return await getText(url); } catch {}
+    try {
+      return await getText(url);
+    } catch {}
     await sleep(250);
   }
   throw new Error(`timeout ${url}`);
 }
 
 class CDP {
-  constructor(url) { this.url = url; this.id = 0; this.pending = new Map(); }
+  constructor(url) {
+    this.url = url;
+    this.id = 0;
+    this.pending = new Map();
+  }
   async open() {
     this.ws = new WebSocket(this.url);
     await new Promise((resolve, reject) => {
@@ -42,7 +51,9 @@ class CDP {
       if (msg.id && this.pending.has(msg.id)) {
         const pending = this.pending.get(msg.id);
         this.pending.delete(msg.id);
-        msg.error ? pending.reject(new Error(JSON.stringify(msg.error))) : pending.resolve(msg.result);
+        msg.error
+          ? pending.reject(new Error(JSON.stringify(msg.error)))
+          : pending.resolve(msg.result);
       }
     });
   }
@@ -54,11 +65,18 @@ class CDP {
     });
   }
   async eval(expression) {
-    const result = await this.send("Runtime.evaluate", { expression, awaitPromise: true, returnByValue: true });
-    if (result.exceptionDetails) throw new Error(result.exceptionDetails.text || "evaluation failed");
+    const result = await this.send("Runtime.evaluate", {
+      expression,
+      awaitPromise: true,
+      returnByValue: true,
+    });
+    if (result.exceptionDetails)
+      throw new Error(result.exceptionDetails.text || "evaluation failed");
     return result.result.value;
   }
-  close() { this.ws?.close(); }
+  close() {
+    this.ws?.close();
+  }
 }
 
 await waitFor(BASE);
@@ -71,7 +89,8 @@ await cdp.open();
 try {
   await cdp.send("Page.enable");
   await cdp.send("Runtime.enable");
-  await cdp.send("Page.addScriptToEvaluateOnNewDocument", { source: `
+  await cdp.send("Page.addScriptToEvaluateOnNewDocument", {
+    source: `
     (() => {
       const Native = window.AudioContext || window.webkitAudioContext;
       window.__bgAudioProbe = { contexts: 0, oscillators: 0 };
@@ -91,7 +110,8 @@ try {
       window.AudioContext = Wrapped;
       if (window.webkitAudioContext) window.webkitAudioContext = Wrapped;
     })();
-  ` });
+  `,
+  });
   await cdp.send("Page.navigate", { url: BASE });
   await sleep(1000);
 
@@ -107,14 +127,29 @@ try {
       overflow: Math.max(0, document.documentElement.scrollWidth - document.documentElement.clientWidth)
     };
   })()`);
-  if (initial.sound !== "off" || initial.pressed !== "false" || initial.probe.contexts !== 0 || initial.probe.oscillators !== 0 || !initial.favicon?.endsWith("/assets/favicon.svg") || initial.motion !== "drip" || initial.overflow > 1) {
+  if (
+    initial.sound !== "off" ||
+    initial.pressed !== "false" ||
+    initial.probe.contexts !== 0 ||
+    initial.probe.oscillators !== 0 ||
+    !initial.favicon?.endsWith("/assets/favicon.svg") ||
+    initial.motion !== "drip" ||
+    initial.overflow > 1
+  ) {
     throw new Error(`initial contract ${JSON.stringify(initial)}`);
   }
 
-  await cdp.eval(`document.querySelector('[data-bluegold-sound]')?.click(); true`);
+  await cdp.eval(
+    `document.querySelector('[data-bluegold-sound]')?.click(); true`
+  );
   await sleep(220);
   const enabled = await cdp.eval(`(() => ({ sound: document.querySelector('[data-bluegold-sound]')?.dataset.bluegoldSound, probe: window.__bgAudioProbe }))()`);
-  if (enabled.sound !== "on" || enabled.probe.contexts < 1 || enabled.probe.oscillators < 3) throw new Error(`opt-in failed ${JSON.stringify(enabled)}`);
+  if (
+    enabled.sound !== "on" ||
+    enabled.probe.contexts < 1 ||
+    enabled.probe.oscillators < 3
+  )
+    throw new Error(`opt-in failed ${JSON.stringify(enabled)}`);
 
   const before = enabled.probe.oscillators;
   await cdp.eval(`document.querySelector('.nav .links a')?.dispatchEvent(new PointerEvent('pointerover', { bubbles: true })); true`);
@@ -122,15 +157,20 @@ try {
   const after = await cdp.eval(`window.__bgAudioProbe.oscillators`);
   if (after <= before) throw new Error(`hover cue missing ${before}->${after}`);
 
-  await cdp.eval(`document.querySelector('[data-bluegold-sound]')?.click(); true`);
+  await cdp.eval(
+    `document.querySelector('[data-bluegold-sound]')?.click(); true`
+  );
   await sleep(150);
   const mutedBefore = await cdp.eval(`window.__bgAudioProbe.oscillators`);
   await cdp.eval(`document.querySelector('.nav .links a')?.dispatchEvent(new PointerEvent('pointerover', { bubbles: true })); true`);
   await sleep(150);
   const mutedAfter = await cdp.eval(`window.__bgAudioProbe.oscillators`);
-  if (mutedAfter !== mutedBefore) throw new Error(`mute failed ${mutedBefore}->${mutedAfter}`);
+  if (mutedAfter !== mutedBefore)
+    throw new Error(`mute failed ${mutedBefore}->${mutedAfter}`);
 
-  await cdp.send("Emulation.setEmulatedMedia", { features: [{ name: "prefers-reduced-motion", value: "reduce" }] });
+  await cdp.send("Emulation.setEmulatedMedia", {
+    features: [{ name: "prefers-reduced-motion", value: "reduce" }],
+  });
   await cdp.send("Page.navigate", { url: BASE });
   await sleep(800);
   const reduced = await cdp.eval(`(() => {
@@ -143,12 +183,28 @@ try {
       overflow: Math.max(0, document.documentElement.scrollWidth - document.documentElement.clientWidth)
     };
   })()`);
-  if (!reduced.media || reduced.sound !== "off" || reduced.rvOpacity !== "1" || reduced.broken.length || reduced.overflow > 1) {
+  if (
+    !reduced.media ||
+    reduced.sound !== "off" ||
+    reduced.rvOpacity !== "1" ||
+    reduced.broken.length ||
+    reduced.overflow > 1
+  ) {
     throw new Error(`reduced-motion/layout failed ${JSON.stringify(reduced)}`);
   }
 
-  const report = { initial, enabled, hover: { before, after }, muted: { before: mutedBefore, after: mutedAfter }, reduced, failures: 0 };
-  await fs.writeFile("bluegold-experience-audit.json", JSON.stringify(report, null, 2));
+  const report = {
+    initial,
+    enabled,
+    hover: { before, after },
+    muted: { before: mutedBefore, after: mutedAfter },
+    reduced,
+    failures: 0,
+  };
+  await fs.writeFile(
+    "bluegold-experience-audit.json",
+    JSON.stringify(report, null, 2)
+  );
   console.log("BLUEGOLD_EXPERIENCE_RUNTIME=PASS");
   console.log(JSON.stringify(report));
 } finally {
