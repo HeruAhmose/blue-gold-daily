@@ -21,6 +21,7 @@
     "check:claims": "node scripts/check-claims.mjs",
     "check:truth": "node scripts/check-public-truth.mjs",
     "audit:security": "npm audit --audit-level=low",
+    "audit:experience": "node scripts/audit-experience-runtime.mjs",
     "test": "npm run check"
   },
   "devDependencies": {
