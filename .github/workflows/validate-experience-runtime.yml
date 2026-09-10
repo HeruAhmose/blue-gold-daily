@@ -68,7 +68,7 @@ jobs:
             about:blank >/tmp/bluegold-chrome.log 2>&1 &
           chrome_pid=$!
           trap 'kill "$chrome_pid" "$server_pid" 2>/dev/null || true; cat /tmp/bluegold-http.log || true; cat /tmp/bluegold-chrome.log || true' EXIT
-          for _ in $(seq 1 80); do
+          for _ in $(seq 1 240); do
             curl --fail --silent http://127.0.0.1:4190/ >/dev/null && curl --fail --silent http://127.0.0.1:9240/json/version >/dev/null && break
             sleep .25
           done
