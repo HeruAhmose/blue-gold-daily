@@ -53,7 +53,28 @@ jobs:
           test -s dist/assets/favicon.svg
           npm run check:truth -- --dist
       - name: Browser-certify opt-in audio, SFX, motion, mute, and reduced motion
-        run: npm run audit:experience
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m http.server 4190 --directory dist >/tmp/bluegold-http.log 2>&1 &
+          server_pid=$!
+          rm -rf /tmp/bluegold-experience-chrome
+          chrome="$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)"
+          test -n "$chrome"
+          "$chrome" --headless --no-sandbox --disable-gpu --disable-dev-shm-usage \
+            --no-first-run --disable-background-networking \
+            --remote-debugging-address=127.0.0.1 --remote-debugging-port=9240 \
+            --remote-allow-origins='*' --user-data-dir=/tmp/bluegold-experience-chrome \
+            about:blank >/tmp/bluegold-chrome.log 2>&1 &
+          chrome_pid=$!
+          trap 'kill "$chrome_pid" "$server_pid" 2>/dev/null || true; cat /tmp/bluegold-http.log || true; cat /tmp/bluegold-chrome.log || true' EXIT
+          for _ in $(seq 1 80); do
+            curl --fail --silent http://127.0.0.1:4190/ >/dev/null && curl --fail --silent http://127.0.0.1:9240/json/version >/dev/null && break
+            sleep .25
+          done
+          curl --fail --silent http://127.0.0.1:4190/ >/dev/null
+          curl --fail --silent http://127.0.0.1:9240/json/version >/dev/null
+          BLUEGOLD_BASE_URL=http://127.0.0.1:4190/ BLUEGOLD_CDP_URL=http://127.0.0.1:9240 npm run audit:experience
       - name: Commit verified production changes
         shell: bash
         run: |
