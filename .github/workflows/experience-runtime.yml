@@ -1,0 +1,101 @@
+name: experience-runtime
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "*.html"
+      - "assets/**"
+      - "scripts/**"
+      - "package.json"
+      - "package-lock.json"
+      - ".github/workflows/experience-runtime.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "*.html"
+      - "assets/**"
+      - "scripts/**"
+      - "package.json"
+      - "package-lock.json"
+      - ".github/workflows/experience-runtime.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: experience-runtime-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  browser-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: "22.22.0"
+          cache: npm
+
+      - name: Install and validate governed source
+        run: |
+          npm ci --ignore-scripts
+          npm run audit:security
+          npm run check
+
+      - name: Build canonical static artifact
+        env:
+          SITE_URL: https://bluegolddaily.com
+        run: npm run build
+
+      - name: Verify built listening layer and favicon
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -Fq 'data-bluegold-sound' dist/assets/site.js
+          test -s dist/assets/favicon.svg
+          npm run check:truth -- --dist
+
+      - name: Launch static server and Chrome
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m http.server 4190 --directory dist >/tmp/bluegold-http.log 2>&1 &
+          echo $! >/tmp/bluegold-http.pid
+          rm -rf /tmp/bluegold-experience-chrome
+          chrome="$(command -v google-chrome || command -v chromium || command -v chromium-browser || true)"
+          test -n "$chrome"
+          "$chrome" --headless --no-sandbox --disable-gpu --disable-dev-shm-usage \
+            --no-first-run --disable-background-networking \
+            --remote-debugging-address=127.0.0.1 --remote-debugging-port=9240 \
+            --remote-allow-origins='*' --user-data-dir=/tmp/bluegold-experience-chrome \
+            about:blank >/tmp/bluegold-chrome.log 2>&1 &
+          echo $! >/tmp/bluegold-chrome.pid
+          for _ in $(seq 1 240); do
+            if curl --fail --silent http://127.0.0.1:4190/ >/dev/null && curl --fail --silent http://127.0.0.1:9240/json/version >/dev/null; then
+              exit 0
+            fi
+            sleep .25
+          done
+          cat /tmp/bluegold-http.log || true
+          cat /tmp/bluegold-chrome.log || true
+          exit 1
+
+      - name: Browser-certify explicit audio, SFX, motion, mute, reduced motion, and layout
+        env:
+          BLUEGOLD_BASE_URL: http://127.0.0.1:4190/
+          BLUEGOLD_CDP_URL: http://127.0.0.1:9240
+        run: |
+          npm run audit:experience
+          cat bluegold-experience-audit.json
+
+      - name: Stop browser laboratory
+        if: always()
+        shell: bash
+        run: |
+          if test -f /tmp/bluegold-chrome.pid; then kill "$(cat /tmp/bluegold-chrome.pid)" 2>/dev/null || true; fi
+          if test -f /tmp/bluegold-http.pid; then kill "$(cat /tmp/bluegold-http.pid)" 2>/dev/null || true; fi
+          cat /tmp/bluegold-chrome.log || true
+          cat /tmp/bluegold-http.log || true
