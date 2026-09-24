@@ -6,38 +6,43 @@
  * the deploy workflow so CI never fails on someone else's downtime.
  */
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
-import { join } from 'node:path';
+import { dirname, join } from 'node:path';
+import { inspectHtml } from './inspect-html.mjs';
 
 const pages = readdirSync('.').filter((f) => f.endsWith('.html'));
 let fail = 0;
+const documents = new Map(pages.map(page => [page, inspectHtml(readFileSync(page, 'utf8'))]));
 
 const localRef = (v) =>
-  v && !/^(https?:|mailto:|tel:|data:|#|\/\/)/.test(v);
+  v && !/^(https?:|mailto:|tel:|data:|\/\/)/i.test(v);
 
 for (const page of pages) {
-  const html = readFileSync(page, 'utf8');
-
-  const refs = [
-    ...[...html.matchAll(/href="([^"]+)"/g)].map((m) => m[1]),
-    ...[...html.matchAll(/src="([^"]+)"/g)].map((m) => m[1]),
-  ].filter(localRef);
-
-  for (const ref of new Set(refs)) {
-    const path = ref.split('#')[0].split('?')[0];
-    if (!path) continue;
-    const target = path.startsWith('/') ? join('.', path) : join('.', path);
+  for (const { name, value } of documents.get(page).references) {
+    const ref = value.trim();
+    if (!localRef(ref)) continue;
+    const hash = ref.indexOf('#');
+    const location = hash < 0 ? ref : ref.slice(0, hash);
+    let path, id;
+    try {
+      path = decodeURIComponent(location.split('?')[0]);
+      id = hash < 0 ? '' : decodeURIComponent(ref.slice(hash + 1));
+    } catch {
+      console.error(`✗ ${page} → ${ref}  (invalid URL encoding)`);
+      fail++;
+      continue;
+    }
+    const target = path ? join(path.startsWith('/') ? '.' : dirname(page), path) : page;
     if (!existsSync(target)) {
       console.error(`✗ ${page} → ${ref}  (missing)`);
       fail++;
+      continue;
     }
-  }
-
-  // in-page anchors must resolve to a real id
-  for (const m of html.matchAll(/href="#([\w-]+)"/g)) {
-    const id = m[1];
-    if (id && !new RegExp(`id="${id}"`).test(html)) {
-      console.error(`✗ ${page} → #${id}  (no matching id)`);
-      fail++;
+    if (name === 'href' && id && target.endsWith('.html')) {
+      if (!documents.has(target)) documents.set(target, inspectHtml(readFileSync(target, 'utf8')));
+      if (!documents.get(target).ids.has(id)) {
+        console.error(`✗ ${page} → ${ref}  (no matching id)`);
+        fail++;
+      }
     }
   }
 }

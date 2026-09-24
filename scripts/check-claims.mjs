@@ -14,6 +14,7 @@
  * claim cannot ship.
  */
 import { readFileSync, readdirSync } from 'node:fs';
+import { inspectHtml } from './inspect-html.mjs';
 
 const FORBIDDEN = [
   // --- disease / treatment claims (FDA) ---
@@ -72,21 +73,33 @@ const REQUIRED = [
 ];
 
 const files = readdirSync('.').filter((f) => f.endsWith('.html'));
+const documents = new Map(files.map(file => [file, inspectHtml(readFileSync(file, 'utf8'))]));
 let fail = 0;
 
 for (const f of files) {
-  const raw = readFileSync(f, 'utf8');
-  // Strip the legal footer: it must be allowed to name what is prohibited.
-  const body = raw.replace(/<p class="legal">[\s\S]*?<\/p>/g, '')
-                  .replace(/<!--[\s\S]*?-->/g, '');
+  const body = documents.get(f).claims;
   for (const { re, why, negatedBy } of FORBIDDEN) {
-    const m = body.match(re);
-    if (m) {
+    const matches = [...body.matchAll(new RegExp(re.source, `${re.flags}g`))];
+    for (const [occurrence, m] of matches.entries()) {
       // A term may appear inside an explicit negation — "contains no CBD",
       // "Gardenia blue is excluded". Those are the claim being kept, not broken.
       if (negatedBy) {
-        const around = body.slice(Math.max(0, m.index - 120), m.index + 160);
-        if (negatedBy.test(around)) continue;
+        // A negation must cover this occurrence in the same sentence. A safe
+        // first mention must not hide a later asserted claim.
+        const before = body.slice(0, m.index);
+        const previous = matches[occurrence - 1];
+        const next = matches[occurrence + 1];
+        const start = Math.max(
+          Math.max(...['.', '!', '?', ';', '\n'].map(c => before.lastIndexOf(c))) + 1,
+          previous ? previous.index + previous[0].length : 0,
+        );
+        const tail = body.slice(m.index);
+        const boundary = tail.search(/[.!?;\n]/);
+        const end = Math.min(boundary < 0 ? body.length : m.index + boundary, next?.index ?? body.length);
+        const sentence = body.slice(start, end);
+        const position = m.index - start;
+        const negations = sentence.matchAll(new RegExp(negatedBy.source, `${negatedBy.flags}g`));
+        if ([...negations].some(n => n.index <= position && position < n.index + n[0].length)) continue;
       }
       const at = body.slice(Math.max(0, m.index - 60), m.index + 90).replace(/\s+/g, ' ');
       console.error(`✗ ${f}\n    matched: "${m[0]}"\n    reason:  ${why}\n    context: …${at}…\n`);
@@ -96,8 +109,7 @@ for (const f of files) {
 }
 
 for (const { file, re, why } of REQUIRED) {
-  if (!files.includes(file)) continue;
-  if (!re.test(readFileSync(file, 'utf8'))) {
+  if (!documents.has(file) || !re.test(documents.get(file).claims)) {
     console.error(`✗ ${file}\n    missing: ${re}\n    reason:  ${why}\n`);
     fail++;
   }
