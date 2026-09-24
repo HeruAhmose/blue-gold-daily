@@ -22,10 +22,12 @@
     "check:truth": "node scripts/check-public-truth.mjs",
     "audit:security": "npm audit --audit-level=low",
     "audit:experience": "node scripts/audit-experience-runtime.mjs",
-    "test": "npm run check"
+    "test:guards": "node --test scripts/validation.test.mjs",
+    "test": "npm run test:guards && npm run check"
   },
   "devDependencies": {
-    "html-validate": "11.7.0"
+    "html-validate": "11.7.0",
+    "parse5": "8.0.1"
   },
   "overrides": {
     "fast-uri": "3.1.7"

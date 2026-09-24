@@ -35,6 +35,9 @@ jobs:
       - name: Dependency audit
         run: npm run audit:security
 
+      - name: Validation regression fixtures
+        run: npm run test:guards
+
       # Claims are a production safety gate, not advisory output.
       - name: Claims guard
         run: npm run check:claims
